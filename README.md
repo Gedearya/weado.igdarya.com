@@ -2,7 +2,14 @@
 
 **Weather to-do app** — aplikasi manajemen tugas berbasis React yang terintegrasi dengan OpenWeatherMap API. Memberikan rekomendasi prioritas tugas berdasarkan kondisi cuaca — tugas indoor diprioritaskan saat hujan, tugas outdoor saat cerah.
 
-🌐 **weado.igdarya.com**
+## 🧑‍💻 Author
+
+I Gede Arya Danny Pratama
+
+## 🌐 Live Website (come soon)
+
+- 🔗 <https://weado.igdarya.com>
+- 🔗 <https://weado-igdarya.vercel.app/>
 
 ## Tech Stack
 
@@ -32,10 +39,10 @@ cp .env.example .env
 - Dapatkan API key dari [OpenWeatherMap](https://openweathermap.org/api) dan masukkan ke `.env`:
 
 ```text
-VITE_OPENWEATHERMAP_API_KEY=your_actual_api_key
+OPENWEATHERMAP_API_KEY=your_actual_api_key
 ```
 
-1. Jalankan development server:
+- Jalankan development server:
 
 ```bash
 npm run dev
