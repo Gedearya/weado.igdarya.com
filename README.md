@@ -1,73 +1,63 @@
-# React + TypeScript + Vite
+# ⛅ WeaDo
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Weather to-do app** — aplikasi manajemen tugas berbasis React yang terintegrasi dengan OpenWeatherMap API. Memberikan rekomendasi prioritas tugas berdasarkan kondisi cuaca — tugas indoor diprioritaskan saat hujan, tugas outdoor saat cerah.
 
-Currently, two official plugins are available:
+🌐 **weado.igdarya.com**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Tech Stack
 
-## React Compiler
+- React 19 + TypeScript
+- Vite
+- Tailwind CSS v4 + shadcn/ui
+- Vitest + React Testing Library + fast-check
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Screenshot
 
-## Expanding the ESLint configuration
+![Weado Screenshot](/src/screenshot/weado-layout.jpg)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Setup
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Clone repository dan install dependencies:
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- Buat file `.env` dari template:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+cp .env.example .env
 ```
+
+- Dapatkan API key dari [OpenWeatherMap](https://openweathermap.org/api) dan masukkan ke `.env`:
+
+```text
+VITE_OPENWEATHERMAP_API_KEY=your_actual_api_key
+```
+
+1. Jalankan development server:
+
+```bash
+npm run dev
+```
+
+## Scripts
+
+| Command              | Description              |
+| -------------------- | ------------------------ |
+| `npm run dev`        | Start development server |
+| `npm run build`      | Build for production     |
+| `npm run test`       | Run tests (single run)   |
+| `npm run test:watch` | Run tests in watch mode  |
+| `npm run lint`       | Run ESLint               |
+| `npm run preview`    | Preview production build |
+
+## Fitur
+
+- Tambah, edit, hapus, dan tandai tugas selesai
+- Integrasi cuaca real-time dari OpenWeatherMap
+- Sorting otomatis berdasarkan cuaca (indoor/outdoor)
+- Badge rekomendasi pada tugas yang sesuai cuaca
+- Penyimpanan persisten via localStorage
+- Responsive design (mobile & desktop)
+- Geolocation otomatis atau input kota manual
