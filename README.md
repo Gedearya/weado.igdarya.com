@@ -6,7 +6,7 @@
 
 I Gede Arya Danny Pratama
 
-## 🌐 Live Website (come soon)
+## 🌐 Live Website (coming soon)
 
 - 🔗 <https://weado.igdarya.com>
 - 🔗 <https://weado-igdarya.vercel.app/>
@@ -15,6 +15,7 @@ I Gede Arya Danny Pratama
 
 - React 19 + TypeScript
 - Vite
+- Bun (TypeScript runtime)
 - Tailwind CSS v4 + shadcn/ui
 - Vitest + React Testing Library + fast-check
 
@@ -37,13 +38,19 @@ I Gede Arya Danny Pratama
 
 ## Setup
 
-- Clone repository dan install dependencies:
+- Clone the repository and install dependencies:
 
 ```bash
 npm install
 ```
 
-- Buat file `.env` dari template:
+- Or use Bun:
+
+```bash
+bun install
+```
+
+- Create `.env` file from template:
 
 ```bash
 cp .env.example .env
@@ -61,16 +68,23 @@ OPENWEATHERMAP_API_KEY=your_actual_api_key
 npm run dev
 ```
 
+- Run TypeScript files directly (no compile needed):
+
+```bash
+bun src/data/tasks.ts
+```
+
 ## Scripts
 
-| Command              | Description              |
-| -------------------- | ------------------------ |
-| `npm run dev`        | Start development server |
-| `npm run build`      | Build for production     |
-| `npm run test`       | Run tests (single run)   |
-| `npm run test:watch` | Run tests in watch mode  |
-| `npm run lint`       | Run ESLint               |
-| `npm run preview`    | Preview production build |
+| Command              | Description                 |
+| -------------------- | --------------------------- |
+| `npm run dev`        | Start development server    |
+| `npm run build`      | Build for production        |
+| `npm run test`       | Run tests (single run)      |
+| `npm run test:watch` | Run tests in watch mode     |
+| `npm run lint`       | Run ESLint                  |
+| `npm run preview`    | Preview production build    |
+| `npm run ts <file>`  | Run TypeScript file via Bun |
 
 ## Features
 
