@@ -29,7 +29,7 @@ I Gede Arya Danny Pratama
 
 ## Flowchart
 
-![Weado Screenshot](/src/screenshot/weado-flowchart.jpg)
+![Weado Flowchart](/src/screenshot/weado-flowchart.jpg)
 
 ## Screenshot
 
