@@ -27,6 +27,10 @@ I Gede Arya Danny Pratama
 
 🔗 <https://www.figma.com/design/stLySXmtNTG6Vo8KwwVHQl/Weather-Todo-APP>
 
+## Flowchart
+
+![Weado Screenshot](/src/screenshot/weado-flowchart.jpg)
+
 ## Screenshot
 
 ![Weado Screenshot](/src/screenshot/weado-layout.jpg)
@@ -47,13 +51,11 @@ cp .env.example .env
 
 - Get the API key from [OpenWeatherMap](https://openweathermap.org/api) and put it in `.env`:
 
-
 ```text
 OPENWEATHERMAP_API_KEY=your_actual_api_key
 ```
 
 - Run the development server:
-
 
 ```bash
 npm run dev
