@@ -30,11 +30,11 @@ I Gede Arya Danny Pratama
 
 ## Flowchart
 
-![Weado Flowchart](/src/screenshot/weado-flowchart.jpg)
+![Weado Flowchart](/docs/weado-flowchart.jpg)
 
 ## Screenshot
 
-![Weado Screenshot](/src/screenshot/weado-layout.jpg)
+![Weado Screenshot](/docs/weado-layout.jpg)
 
 ## Setup
 
