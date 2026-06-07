@@ -1,4 +1,4 @@
-function TaskForm() {
+export function TaskForm() {
   return (
     <div className="border border-gray-200 rounded-xl p-5 mt-4">
       <h2 className="font-bold mb-3">Add New Task</h2>
@@ -48,5 +48,3 @@ function TaskForm() {
     </div>
   );
 }
-
-export default TaskForm;

@@ -1,8 +1,8 @@
-import type { TaskListProps } from "../task-list.type";
-import { sortTasks } from "../task-list.data";
-import TaskCard from "../../task/components/task-card";
+import type { TaskListProps } from "@/modules/task-list/task-list.type";
+import { sortTasks } from "@/modules/task-list/task-list.data";
+import { TaskCard } from "@/modules/task/components/task-card";
 
-function TaskList({ tasks, condition }: TaskListProps) {
+export function TaskList({ tasks, condition }: TaskListProps) {
   const sortedTasks = sortTasks(tasks, condition);
 
   return (
@@ -14,5 +14,3 @@ function TaskList({ tasks, condition }: TaskListProps) {
     </div>
   );
 }
-
-export default TaskList;

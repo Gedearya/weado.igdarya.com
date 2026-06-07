@@ -1,10 +1,14 @@
-import type { Task } from "../task/task.type";
-import type { WeatherCondition } from "../weather/weather.type";
+import type { Task, TaskCategory } from "@/modules/task/task.type";
+import { TASK_CATEGORY } from "@/modules/task/task.constant";
+import type { WeatherCondition } from "@/modules/weather/weather.type";
+import { WEATHER_CONDITION } from "@/modules/weather/weather.constant";
 
 export function getRecommendedCategory(
   condition: WeatherCondition,
-): "indoor" | "outdoor" {
-  return condition === "rain" ? "indoor" : "outdoor";
+): TaskCategory {
+  return condition === WEATHER_CONDITION.RAIN
+    ? TASK_CATEGORY.INDOOR
+    : TASK_CATEGORY.OUTDOOR;
 }
 
 export function isMatchWeather(
@@ -22,17 +26,22 @@ export function isRecommended(
 }
 
 export function sortTasks(tasks: Task[], condition: WeatherCondition): Task[] {
-  const recommended = tasks.filter(
-    (t) => !t.completed && isMatchWeather(t, condition),
+  const recommendedTasks = tasks.filter(
+    (task) => !task.completed && isMatchWeather(task, condition),
   );
-  const notRecommended = tasks.filter(
-    (t) => !t.completed && !isMatchWeather(t, condition),
+  const notRecommendedTasks = tasks.filter(
+    (task) => !task.completed && !isMatchWeather(task, condition),
   );
-  const doneMatch = tasks.filter(
-    (t) => t.completed && isMatchWeather(t, condition),
+  const completedMatchTasks = tasks.filter(
+    (task) => task.completed && isMatchWeather(task, condition),
   );
-  const doneNotMatch = tasks.filter(
-    (t) => t.completed && !isMatchWeather(t, condition),
+  const completedNotMatchTasks = tasks.filter(
+    (task) => task.completed && !isMatchWeather(task, condition),
   );
-  return [...recommended, ...notRecommended, ...doneMatch, ...doneNotMatch];
+  return [
+    ...recommendedTasks,
+    ...notRecommendedTasks,
+    ...completedMatchTasks,
+    ...completedNotMatchTasks,
+  ];
 }

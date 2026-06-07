@@ -1,11 +1,11 @@
-import Header from "./components/header";
-import WeatherCard from "./modules/weather/components/weather-card";
-import TaskForm from "./modules/task/components/task-form";
-import TaskList from "./modules/task-list/components/task-list";
-import { weatherData } from "./modules/weather/weather.data";
-import { tasks } from "./modules/task/task.data";
+import { Header } from "@/components/header";
+import { WeatherCard } from "@/modules/weather/components/weather-card";
+import { TaskForm } from "@/modules/task/components/task-form";
+import { TaskList } from "@/modules/task-list/components/task-list";
+import { weatherData } from "@/modules/weather/weather.data";
+import { tasks } from "@/modules/task/task.data";
 
-function App() {
+export function App() {
   return (
     <div className="min-h-screen bg-gray-50 py-10 px-4">
       <div className="max-w-5xl mx-auto">
@@ -23,5 +23,3 @@ function App() {
     </div>
   );
 }
-
-export default App;

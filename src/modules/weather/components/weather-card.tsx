@@ -1,12 +1,14 @@
-import type { WeatherData } from "../weather.type";
+import type { WeatherData } from "@/modules/weather/weather.type";
+import { WEATHER_CONDITION } from "@/modules/weather/weather.constant";
 
 type WeatherCardProps = {
   weather: WeatherData;
 };
 
-function WeatherCard({ weather }: WeatherCardProps) {
-  const bgColor = weather.condition === "rain" ? "bg-gray-500" : "bg-sky-400";
-  const icon = weather.condition === "rain" ? "🌧️" : "⛅";
+export function WeatherCard({ weather }: WeatherCardProps) {
+  const bgColor =
+    weather.condition === WEATHER_CONDITION.RAIN ? "bg-gray-500" : "bg-sky-400";
+  const icon = weather.condition === WEATHER_CONDITION.RAIN ? "🌧️" : "⛅";
 
   return (
     <div
@@ -20,5 +22,3 @@ function WeatherCard({ weather }: WeatherCardProps) {
     </div>
   );
 }
-
-export default WeatherCard;

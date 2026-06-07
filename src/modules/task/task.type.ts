@@ -1,4 +1,6 @@
-export type TaskCategory = "indoor" | "outdoor";
+import { TASK_CATEGORY } from "./task.constant";
+
+export type TaskCategory = (typeof TASK_CATEGORY)[keyof typeof TASK_CATEGORY];
 
 export type Task = {
   id: number;

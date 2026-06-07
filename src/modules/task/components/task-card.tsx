@@ -1,21 +1,23 @@
-import type { Task } from "../task.type";
-import type { WeatherCondition } from "../../weather/weather.type";
-import { isRecommended } from "../../task-list/task-list.data";
+import type { Task, TaskCategory } from "@/modules/task/task.type";
+import { TASK_CATEGORY } from "@/modules/task/task.constant";
+import type { WeatherCondition } from "@/modules/weather/weather.type";
+import { isRecommended } from "@/modules/task-list/task-list.data";
 
 type TaskCardProps = {
   task: Task;
   condition: WeatherCondition;
 };
 
-function CategoryBadge({ category }: { category: "indoor" | "outdoor" }) {
-  const style =
-    category === "indoor"
-      ? "bg-blue-100 text-blue-700 border-blue-300"
-      : "bg-green-100 text-green-700 border-green-300";
-
+function CategoryBadge({ category }: { category: TaskCategory }) {
   return (
-    <span className={`text-xs px-2 py-0.5 rounded-full border ${style}`}>
-      {category === "indoor" ? "Indoor" : "Outdoor"}
+    <span
+      className={`text-xs px-2 py-0.5 rounded-full border ${
+        category === TASK_CATEGORY.INDOOR
+          ? "bg-blue-100 text-blue-700 border-blue-300"
+          : "bg-green-100 text-green-700 border-green-300"
+      }`}
+    >
+      {category === TASK_CATEGORY.INDOOR ? "Indoor" : "Outdoor"}
     </span>
   );
 }
@@ -28,7 +30,7 @@ function RecommendedBadge() {
   );
 }
 
-function TaskCard({ task, condition }: TaskCardProps) {
+export function TaskCard({ task, condition }: TaskCardProps) {
   const recommended = isRecommended(task, condition);
   const cardBg = recommended
     ? "bg-green-50 border-green-200"
@@ -66,5 +68,3 @@ function TaskCard({ task, condition }: TaskCardProps) {
     </div>
   );
 }
-
-export default TaskCard;

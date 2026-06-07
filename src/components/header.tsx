@@ -1,4 +1,4 @@
-function Header() {
+export function Header() {
   return (
     <header className="mb-6">
       <h1 className="text-3xl font-bold">⛅ WeaDo</h1>
@@ -8,5 +8,3 @@ function Header() {
     </header>
   );
 }
-
-export default Header;
