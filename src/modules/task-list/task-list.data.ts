@@ -1,5 +1,5 @@
 import type { Task } from "../task/task.type";
-import type { WeatherCondition, WeatherData } from "../weather/weather.type";
+import type { WeatherCondition } from "../weather/weather.type";
 
 export function getRecommendedCategory(
   condition: WeatherCondition,
