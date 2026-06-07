@@ -1,4 +1,4 @@
-export type TaskCategory = "indoor" | "outdoor";
+export type TaskCategory = "INDOOR" | "OUTDOOR";
 
 export type Task = {
   id: number;

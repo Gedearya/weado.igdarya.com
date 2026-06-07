@@ -1,0 +1,5 @@
+export const TASK_CATEGORY = {
+  INDOOR: "INDOOR",
+  OUTDOOR: "OUTDOOR",
+  UNCATEGORIZED: "UNCATEGORIZED",
+} as const;
