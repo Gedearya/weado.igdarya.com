@@ -14,7 +14,7 @@ export function Header({ condition }: HeaderProps) {
         {icon} WeaDo
       </h1>
       <p className="text-white/80 text-sm drop-shadow-sm">
-        Weather to-do app — manage tasks based on weather.
+        Weather Todo App, manage tasks based on weather.
       </p>
     </header>
   );
