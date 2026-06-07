@@ -1,6 +1,12 @@
 import type { WeatherData } from "@/modules/weather/weather.type";
 import { WEATHER_CONDITION } from "@/modules/weather/weather.constant";
-import { Card, CardContent } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 
 type WeatherCardProps = {
   weather: WeatherData;
@@ -13,13 +19,18 @@ export function WeatherCard({ weather }: WeatherCardProps) {
 
   return (
     <Card className={`${bgColor} border-none text-white`}>
-      <CardContent className="flex items-center gap-4 p-6">
+      <CardHeader className="flex flex-row items-center gap-4 p-6 pb-0">
         <span className="text-5xl">{icon}</span>
         <div>
-          <p className="text-4xl font-bold">{weather.temperature}°C</p>
-          <p className="text-sm">{weather.description}</p>
+          <CardTitle className="text-4xl font-bold text-white">
+            {weather.temperature}°C
+          </CardTitle>
+          <CardDescription className="text-white/80">
+            {weather.description}
+          </CardDescription>
         </div>
-      </CardContent>
+      </CardHeader>
+      <CardContent className="p-6 pt-2" />
     </Card>
   );
 }

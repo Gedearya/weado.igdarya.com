@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { Plus } from "lucide-react";
 
 export function TaskForm() {
   return (
@@ -45,7 +46,10 @@ export function TaskForm() {
           </div>
         </div>
 
-        <Button>Add Task</Button>
+        <Button className="w-full">
+          <Plus className="w-4 h-4" />
+          Add Task
+        </Button>
       </CardContent>
     </Card>
   );

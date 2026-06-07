@@ -2,8 +2,16 @@ import type { Task, TaskCategory } from "@/modules/task/task.type";
 import { TASK_CATEGORY } from "@/modules/task/task.constant";
 import type { WeatherCondition } from "@/modules/weather/weather.type";
 import { isRecommended } from "@/modules/task-list/task-list.data";
-import { Card, CardContent } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Pencil, Trash2, CheckCircle, Circle } from "lucide-react";
 
 type TaskCardProps = {
   task: Task;
@@ -40,34 +48,42 @@ export function TaskCard({ task, condition }: TaskCardProps) {
 
   return (
     <Card className={cardClassName}>
-      <CardContent className="flex items-center gap-3 p-4">
-        <div
-          className={`w-6 h-6 rounded-full border-2 flex items-center justify-center shrink-0 ${
-            task.completed
-              ? "bg-green-500 border-green-500 text-white"
-              : "border-gray-300"
-          }`}
-        >
-          {task.completed && <span className="text-xs">✓</span>}
+      <CardHeader className="flex flex-row items-center justify-between p-4 pb-0">
+        <div className="flex items-center gap-3">
+          {task.completed ? (
+            <CheckCircle className="w-5 h-5 text-green-500" />
+          ) : (
+            <Circle className="w-5 h-5 text-muted-foreground" />
+          )}
+          <div>
+            <CardTitle
+              className={`text-base ${task.completed ? "line-through text-muted-foreground" : ""}`}
+            >
+              {task.title}
+            </CardTitle>
+            <CardDescription className="text-xs">
+              {task.description}
+            </CardDescription>
+          </div>
         </div>
 
-        <div className="flex-1">
-          <p
-            className={
-              task.completed
-                ? "line-through text-muted-foreground"
-                : "font-medium"
-            }
+        <div className="flex gap-1">
+          <Button variant="ghost" size="icon" className="h-8 w-8">
+            <Pencil className="w-4 h-4" />
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-8 w-8 text-destructive"
           >
-            {task.title}
-          </p>
-          <p className="text-xs text-muted-foreground">{task.description}</p>
+            <Trash2 className="w-4 h-4" />
+          </Button>
         </div>
+      </CardHeader>
 
-        <div className="flex gap-2 items-center">
-          <CategoryBadge category={task.category} />
-          {recommended && <RecommendedBadge />}
-        </div>
+      <CardContent className="flex items-center gap-2 p-4 pt-2">
+        <CategoryBadge category={task.category} />
+        {recommended && <RecommendedBadge />}
       </CardContent>
     </Card>
   );
