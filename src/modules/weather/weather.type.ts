@@ -22,6 +22,7 @@ export type HourlyForecast = {
   time: string;
   temperature: number;
   rainChance: number;
+  icon: string;
 };
 
 export type DailyForecast = {

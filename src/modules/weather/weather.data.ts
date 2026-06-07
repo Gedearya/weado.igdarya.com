@@ -6,7 +6,7 @@ import type {
 import { WEATHER_CONDITION } from "./weather.constant";
 
 export const weatherData: WeatherData = {
-  condition: WEATHER_CONDITION.SNOW,
+  condition: WEATHER_CONDITION.CLEAR,
   temperature: 30,
   feelsLike: 36,
   description: "Few Clouds",
@@ -21,15 +21,15 @@ export const weatherData: WeatherData = {
 };
 
 export const hourlyForecast: HourlyForecast[] = [
-  { time: "9 am", temperature: 30, rainChance: 0 },
-  { time: "10 am", temperature: 31, rainChance: 0 },
-  { time: "11 am", temperature: 31, rainChance: 8 },
-  { time: "12 pm", temperature: 32, rainChance: 8 },
-  { time: "1 pm", temperature: 33, rainChance: 0 },
-  { time: "2 pm", temperature: 33, rainChance: 0 },
-  { time: "3 pm", temperature: 34, rainChance: 0 },
-  { time: "4 pm", temperature: 33, rainChance: 0 },
-  { time: "5 pm", temperature: 32, rainChance: 0 },
+  { time: "12 p.m", temperature: 34, rainChance: 0, icon: "☀️" },
+  { time: "1 p.m", temperature: 34, rainChance: 0, icon: "☀️" },
+  { time: "2 p.m", temperature: 34, rainChance: 0, icon: "☀️" },
+  { time: "3 p.m", temperature: 34, rainChance: 0, icon: "☀️" },
+  { time: "4 p.m", temperature: 33, rainChance: 0, icon: "☀️" },
+  { time: "5 p.m", temperature: 32, rainChance: 0, icon: "⛅" },
+  { time: "6 p.m", temperature: 31, rainChance: 0, icon: "⛅" },
+  { time: "7 p.m", temperature: 31, rainChance: 0, icon: "⛅" },
+  { time: "8 p.m", temperature: 30, rainChance: 0, icon: "🌙" },
 ];
 
 export const dailyForecast: DailyForecast[] = [

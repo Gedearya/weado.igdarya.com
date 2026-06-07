@@ -62,27 +62,30 @@ export function WeatherCard({ weather, hourly, daily }: WeatherCardProps) {
   const chartData = hourly.map((hour) => ({
     label: hour.time,
     value: hour.temperature,
+    rainChance: hour.rainChance,
   }));
 
   return (
     <div className="space-y-3">
       {/* Search + Location */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center justify-between">
         <div className="flex items-center gap-1.5 text-sm text-white/80 drop-shadow-sm">
           <MapPin className="w-3.5 h-3.5" />
           <span>{weather.city}</span>
         </div>
-        <div className="relative flex-1 max-w-[200px]">
-          <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" />
-          <Input
-            placeholder="Search City"
-            className="pl-8 h-8 text-sm bg-white/90"
-            readOnly
-          />
+        <div className="flex items-center gap-2">
+          <div className="relative">
+            <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" />
+            <Input
+              placeholder="Search City"
+              className="pl-8 h-8 text-sm bg-white/90 w-[180px]"
+              readOnly
+            />
+          </div>
+          <Button variant="outline" size="icon" className="h-8 w-8 bg-white/90">
+            <MapPin className="w-3.5 h-3.5" />
+          </Button>
         </div>
-        <Button variant="outline" size="icon" className="h-8 w-8 bg-white/90">
-          <MapPin className="w-3.5 h-3.5" />
-        </Button>
       </div>
 
       {/* Daily Tabs */}
@@ -176,22 +179,28 @@ export function WeatherCard({ weather, hourly, daily }: WeatherCardProps) {
         </Card>
 
         {/* Hourly Forecast with Chart */}
-        <Card className="md:col-span-3 flex flex-col">
-          <CardHeader className="pb-0 px-4 pt-4">
-            <CardTitle className="text-sm">Hourly Forecast</CardTitle>
+        <Card className="md:col-span-3 flex flex-col justify-between">
+          <CardHeader className="pb-0 px-5 pt-4">
+            <CardTitle className="text-base font-semibold">
+              Hourly Forecast
+            </CardTitle>
           </CardHeader>
-          <CardContent className="flex-1 px-4 pb-4 pt-2">
-            <SimpleLineChart data={chartData} color="#f97316" height={130} />
-            <div className="grid grid-cols-9 gap-1 mt-3 border-t pt-3">
+          <CardContent className="flex flex-col justify-end px-5 pb-4 pt-1 gap-2">
+            <SimpleLineChart data={chartData} color="#f97316" height={80} />
+            <div className="grid grid-cols-9 gap-1.5">
               {hourly.map((hour) => (
-                <div key={hour.time} className="text-center">
+                <div
+                  key={hour.time}
+                  className="flex flex-col items-center gap-0.5 bg-amber-50 rounded-lg py-2 px-1"
+                >
                   <p className="text-[10px] text-muted-foreground">
                     {hour.time}
                   </p>
+                  <span className="text-sm">{hour.icon}</span>
                   <p className="text-[10px] text-blue-500">
                     {hour.rainChance}%
                   </p>
-                  <p className="text-xs font-bold">{hour.temperature}°</p>
+                  <p className="text-sm font-bold">{hour.temperature}°</p>
                 </div>
               ))}
             </div>
