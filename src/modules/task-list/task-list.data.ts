@@ -26,17 +26,23 @@ export function isRecommended(
 }
 
 export function sortTasks(tasks: Task[], condition: WeatherCondition): Task[] {
-  const recommended = tasks.filter(
+  const recommendedTasks = tasks.filter(
     (t) => !t.completed && isMatchWeather(t, condition),
   );
-  const notRecommended = tasks.filter(
+  const notRecommendedTasks = tasks.filter(
     (t) => !t.completed && !isMatchWeather(t, condition),
   );
-  const doneMatch = tasks.filter(
+  const doneMatchTasks = tasks.filter(
     (t) => t.completed && isMatchWeather(t, condition),
   );
-  const doneNotMatch = tasks.filter(
+  const doneNotMatchTasks = tasks.filter(
     (t) => t.completed && !isMatchWeather(t, condition),
   );
-  return [...recommended, ...notRecommended, ...doneMatch, ...doneNotMatch];
+
+  return [
+    ...recommendedTasks,
+    ...notRecommendedTasks,
+    ...doneMatchTasks,
+    ...doneNotMatchTasks,
+  ];
 }
