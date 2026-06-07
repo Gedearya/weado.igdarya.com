@@ -3,10 +3,19 @@ import { TASK_CATEGORY } from "@/modules/task/task.constant";
 import type { WeatherCondition } from "@/modules/weather/weather.type";
 import { WEATHER_CONDITION } from "@/modules/weather/weather.constant";
 
+const INDOOR_CONDITIONS: WeatherCondition[] = [
+  WEATHER_CONDITION.RAIN,
+  WEATHER_CONDITION.THUNDERSTORM,
+  WEATHER_CONDITION.DRIZZLE,
+  WEATHER_CONDITION.SNOW,
+  WEATHER_CONDITION.TORNADO,
+  WEATHER_CONDITION.SQUALL,
+];
+
 export function getRecommendedCategory(
   condition: WeatherCondition,
 ): TaskCategory {
-  return condition === WEATHER_CONDITION.RAIN
+  return INDOOR_CONDITIONS.includes(condition)
     ? TASK_CATEGORY.INDOOR
     : TASK_CATEGORY.OUTDOOR;
 }
