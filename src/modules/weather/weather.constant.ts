@@ -1,0 +1,6 @@
+export const WEATHER_CONDITION = {
+  RAIN: "RAIN",
+  SUNNY: "SUNNY",
+  STORM: "STORM",
+  CLOUDY: "CLOUDY",
+};

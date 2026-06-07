@@ -1,5 +1,5 @@
 {
-  "name": "weado.igdarya.com",
+  "name": "weado",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -8,8 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "preview": "vite preview",
-    "ts": "bun"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.0",

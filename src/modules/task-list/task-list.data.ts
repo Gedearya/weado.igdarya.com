@@ -1,10 +1,11 @@
 import type { Task } from "../task/task.type";
+import { WEATHER_CONDITION } from "../weather/weather.constant";
 import type { WeatherCondition } from "../weather/weather.type";
 
 export function getRecommendedCategory(
   condition: WeatherCondition,
 ): "indoor" | "outdoor" {
-  return condition === "rain" ? "indoor" : "outdoor";
+  return condition === WEATHER_CONDITION.RAIN ? "indoor" : "outdoor";
 }
 
 export function isMatchWeather(
