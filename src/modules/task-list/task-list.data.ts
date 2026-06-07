@@ -1,8 +1,9 @@
-import type { WeatherCondition, TaskCategory, Task } from "../types";
+import type { Task } from "../task/task.type";
+import type { WeatherCondition, WeatherData } from "../weather/weather.type";
 
 export function getRecommendedCategory(
   condition: WeatherCondition,
-): TaskCategory {
+): "indoor" | "outdoor" {
   return condition === "rain" ? "indoor" : "outdoor";
 }
 

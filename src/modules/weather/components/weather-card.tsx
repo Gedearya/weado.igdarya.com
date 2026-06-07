@@ -1,8 +1,8 @@
-import type { WeatherData } from "../types";
+import type { WeatherData } from "../weather.type";
 
-interface WeatherCardProps {
+type WeatherCardProps = {
   weather: WeatherData;
-}
+};
 
 function WeatherCard({ weather }: WeatherCardProps) {
   const bgColor = weather.condition === "rain" ? "bg-gray-500" : "bg-sky-400";

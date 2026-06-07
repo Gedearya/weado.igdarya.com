@@ -1,11 +1,6 @@
-import type { Task, WeatherCondition } from "../types";
-import { sortTasks } from "../utils";
-import TaskCard from "./task-card";
-
-interface TaskListProps {
-  tasks: Task[];
-  condition: WeatherCondition;
-}
+import type { TaskListProps } from "../task-list.type";
+import { sortTasks } from "../task-list.data";
+import TaskCard from "../../task/components/task-card";
 
 function TaskList({ tasks, condition }: TaskListProps) {
   const sortedTasks = sortTasks(tasks, condition);

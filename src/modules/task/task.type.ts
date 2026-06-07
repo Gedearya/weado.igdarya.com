@@ -1,9 +1,9 @@
 export type TaskCategory = "indoor" | "outdoor";
 
-export interface Task {
+export type Task = {
   id: number;
   title: string;
   category: TaskCategory;
   description: string;
   completed: boolean;
-}
+};

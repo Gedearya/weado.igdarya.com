@@ -1,7 +1,7 @@
 export type WeatherCondition = "rain" | "clear";
 
-export interface WeatherData {
+export type WeatherData = {
   condition: WeatherCondition;
   temperature: number;
   description: string;
-}
+};

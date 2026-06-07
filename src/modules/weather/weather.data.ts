@@ -1,4 +1,4 @@
-import type { WeatherData } from "../types";
+import type { WeatherData } from "./weather.type";
 
 export const weatherData: WeatherData = {
   condition: "clear",

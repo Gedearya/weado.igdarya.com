@@ -1,8 +1,9 @@
 import Header from "./components/header";
-import WeatherCard from "./components/weather-card";
-import TaskForm from "./components/task-form";
-import TaskList from "./components/task-list";
-import { weatherData, tasks } from "./data";
+import WeatherCard from "./modules/weather/components/weather-card";
+import TaskForm from "./modules/task/components/task-form";
+import TaskList from "./modules/task-list/components/task-list";
+import { weatherData } from "./modules/weather/weather.data";
+import { tasks } from "./modules/task/task.data";
 
 function App() {
   return (

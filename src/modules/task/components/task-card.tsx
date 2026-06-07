@@ -1,11 +1,31 @@
-import type { Task, WeatherCondition } from "../types";
-import { isRecommended } from "../utils";
-import CategoryBadge from "./shared/category-badge";
-import RecommendedBadge from "./shared/recommended-badge";
+import type { Task } from "../task.type";
+import type { WeatherCondition } from "../../weather/weather.type";
+import { isRecommended } from "../../task-list/task-list.data";
 
-interface TaskCardProps {
+type TaskCardProps = {
   task: Task;
   condition: WeatherCondition;
+};
+
+function CategoryBadge({ category }: { category: "indoor" | "outdoor" }) {
+  const style =
+    category === "indoor"
+      ? "bg-blue-100 text-blue-700 border-blue-300"
+      : "bg-green-100 text-green-700 border-green-300";
+
+  return (
+    <span className={`text-xs px-2 py-0.5 rounded-full border ${style}`}>
+      {category === "indoor" ? "Indoor" : "Outdoor"}
+    </span>
+  );
+}
+
+function RecommendedBadge() {
+  return (
+    <span className="text-xs px-2 py-0.5 rounded-full bg-orange-100 text-orange-600 border border-orange-300">
+      ⭐ Recommended
+    </span>
+  );
 }
 
 function TaskCard({ task, condition }: TaskCardProps) {
