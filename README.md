@@ -1,6 +1,6 @@
 # ⛅ WeaDo
 
-**Weather to-do app** — a React-based task management app integrated with the OpenWeatherMap API. Provides task priority recommendations based on weather conditions — indoor tasks are prioritized when it's raining, outdoor tasks when it's sunny.
+**Weather Todo app** is React based task management app integrated with the OpenWeatherMap API. Provides task priority recommendations based on weather conditions, indoor tasks are prioritized when it's raining, outdoor tasks when it's sunny.
 
 ## 🧑‍💻 Author
 
@@ -10,6 +10,16 @@ I Gede Arya Danny Pratama
 
 - 🔗 <https://weado.igdarya.com>
 - 🔗 <https://weado-igdarya.vercel.app/>
+
+## Features
+
+- Add, edit, delete, and mark tasks as complete
+- Real-time weather integration from OpenWeatherMap
+- Automatic sorting by weather (indoor/outdoor)
+- Recommendation badges on weather-appropriate tasks
+- Persistent storage via localStorage
+- Responsive design (mobile & desktop)
+- Automatic geolocation or manual city input
 
 ## Tech Stack
 
@@ -30,11 +40,11 @@ I Gede Arya Danny Pratama
 
 ## Flowchart
 
-![Weado Flowchart](/docs/weado-flowchart.jpg)
+![Weado Flowchart](./docs/weado-flowchart.jpg)
 
 ## Screenshot
 
-![Weado Screenshot](/docs/weado-layout.jpg)
+![Weado Screenshot](./docs/weado-layout.jpg)
 
 ## Setup
 
@@ -79,14 +89,3 @@ bun src/data/tasks.ts
 | `bun run lint`       | Run ESLint               |
 | `bun run format`     | Format code via Prettier |
 | `bun run preview`    | Preview production build |
-| `bun <file.ts>`      | Run TypeScript file      |
-
-## Features
-
-- Add, edit, delete, and mark tasks as complete
-- Real-time weather integration from OpenWeatherMap
-- Automatic sorting by weather (indoor/outdoor)
-- Recommendation badges on weather-appropriate tasks
-- Persistent storage via localStorage
-- Responsive design (mobile & desktop)
-- Automatic geolocation or manual city input

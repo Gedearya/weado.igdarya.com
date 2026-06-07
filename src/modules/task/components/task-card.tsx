@@ -2,6 +2,8 @@ import type { Task, TaskCategory } from "@/modules/task/task.type";
 import { TASK_CATEGORY } from "@/modules/task/task.constant";
 import type { WeatherCondition } from "@/modules/weather/weather.type";
 import { isRecommended } from "@/modules/task-list/task-list.data";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 type TaskCardProps = {
   task: Task;
@@ -9,62 +11,64 @@ type TaskCardProps = {
 };
 
 function CategoryBadge({ category }: { category: TaskCategory }) {
+  const className =
+    category === TASK_CATEGORY.INDOOR
+      ? "bg-blue-100 text-blue-700 border-blue-300"
+      : "bg-green-100 text-green-700 border-green-300";
+
   return (
-    <span
-      className={`text-xs px-2 py-0.5 rounded-full border ${
-        category === TASK_CATEGORY.INDOOR
-          ? "bg-blue-100 text-blue-700 border-blue-300"
-          : "bg-green-100 text-green-700 border-green-300"
-      }`}
-    >
+    <Badge variant="outline" className={className}>
       {category === TASK_CATEGORY.INDOOR ? "Indoor" : "Outdoor"}
-    </span>
+    </Badge>
   );
 }
 
 function RecommendedBadge() {
   return (
-    <span className="text-xs px-2 py-0.5 rounded-full bg-orange-100 text-orange-600 border border-orange-300">
+    <Badge
+      variant="outline"
+      className="bg-orange-100 text-orange-600 border-orange-300"
+    >
       ⭐ Recommended
-    </span>
+    </Badge>
   );
 }
 
 export function TaskCard({ task, condition }: TaskCardProps) {
   const recommended = isRecommended(task, condition);
-  const cardBg = recommended
-    ? "bg-green-50 border-green-200"
-    : "bg-white border-gray-200";
+  const cardClassName = recommended ? "bg-green-50 border-green-200" : "";
 
   return (
-    <div
-      className={`flex items-center gap-3 border rounded-xl p-4 mb-3 ${cardBg}`}
-    >
-      <div
-        className={`w-6 h-6 rounded-full border-2 flex items-center justify-center shrink-0 ${
-          task.completed
-            ? "bg-green-500 border-green-500 text-white"
-            : "border-gray-300"
-        }`}
-      >
-        {task.completed && <span className="text-xs">✓</span>}
-      </div>
-
-      <div className="flex-1">
-        <p
-          className={
-            task.completed ? "line-through text-gray-400" : "font-medium"
-          }
+    <Card className={cardClassName}>
+      <CardContent className="flex items-center gap-3 p-4">
+        <div
+          className={`w-6 h-6 rounded-full border-2 flex items-center justify-center shrink-0 ${
+            task.completed
+              ? "bg-green-500 border-green-500 text-white"
+              : "border-gray-300"
+          }`}
         >
-          {task.title}
-        </p>
-        <p className="text-xs text-gray-400">{task.description}</p>
-      </div>
+          {task.completed && <span className="text-xs">✓</span>}
+        </div>
 
-      <div className="flex gap-2 items-center">
-        <CategoryBadge category={task.category} />
-        {recommended && <RecommendedBadge />}
-      </div>
-    </div>
+        <div className="flex-1">
+          <p
+            className={
+              task.completed
+                ? "line-through text-muted-foreground"
+                : "font-medium"
+            }
+          >
+            {task.title}
+          </p>
+          <p className="text-xs text-muted-foreground">{task.description}</p>
+        </div>
+
+        <div className="flex gap-2 items-center">
+          <CategoryBadge category={task.category} />
+          {recommended && <RecommendedBadge />}
+        </div>
+      </CardContent>
+    </Card>
   );
 }
