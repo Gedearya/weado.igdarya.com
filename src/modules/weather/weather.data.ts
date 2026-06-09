@@ -15,8 +15,6 @@ export const weatherData: WeatherData = {
   windSpeed: 2,
   windDirection: "ESE",
   pressure: 1014,
-  uvIndex: 0,
-  dewPoint: 24,
   visibility: 10,
 };
 

@@ -13,16 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { SimpleLineChart } from "@/components/ui/chart";
-import {
-  MapPin,
-  Search,
-  Droplets,
-  Wind,
-  Gauge,
-  Sun,
-  Eye,
-  Thermometer,
-} from "lucide-react";
+import { MapPin, Search, Droplets, Wind, Eye, Gauge } from "lucide-react";
 
 type WeatherCardProps = {
   weather: WeatherData;
@@ -40,12 +31,12 @@ function WeatherDetail({
   value: string;
 }) {
   return (
-    <div className="flex flex-col items-center gap-1 bg-amber-50 rounded-lg p-3">
-      <div className="flex items-center gap-1.5 text-muted-foreground">
+    <div className="flex flex-col items-center justify-center gap-0.5 bg-amber-50 rounded-lg p-2 w-full h-full">
+      <div className="flex items-center gap-1 text-muted-foreground">
         {icon}
-        <span className="text-xs">{label}</span>
+        <span className="text-[10px]">{label}</span>
       </div>
-      <p className="text-sm font-semibold">{value}</p>
+      <p className="text-xs font-semibold">{value}</p>
     </div>
   );
 }
@@ -97,7 +88,7 @@ export function WeatherCard({ weather, hourly, daily }: WeatherCardProps) {
             className={`shrink-0 px-3 py-1 cursor-pointer text-xs ${
               index === 0
                 ? "bg-orange-500 hover:bg-orange-600 text-white border-none"
-                : "bg-white/80 text-foreground"
+                : "bg-white/20 text-white border-white/30"
             }`}
           >
             {day.day} {day.temperature}° {day.icon}
@@ -112,7 +103,7 @@ export function WeatherCard({ weather, hourly, daily }: WeatherCardProps) {
           <CardContent className="p-0">
             {/* Sky image with weather info overlay */}
             <div
-              className="relative h-[200px] bg-cover bg-center rounded-t-lg"
+              className="relative h-[280px] bg-cover bg-center rounded-t-lg"
               style={{ backgroundImage: `url('${bgImage}')` }}
             >
               <div
@@ -143,7 +134,7 @@ export function WeatherCard({ weather, hourly, daily }: WeatherCardProps) {
             </div>
 
             {/* Weather details grid */}
-            <div className="grid grid-cols-3 gap-2 p-3">
+            <div className="grid grid-cols-2 gap-2 p-2">
               <WeatherDetail
                 icon={<Wind className="w-3.5 h-3.5" />}
                 label="Wind"
@@ -164,16 +155,6 @@ export function WeatherCard({ weather, hourly, daily }: WeatherCardProps) {
                 label="Pressure"
                 value={`${weather.pressure} hPa`}
               />
-              <WeatherDetail
-                icon={<Sun className="w-3.5 h-3.5" />}
-                label="UV Index"
-                value={`${weather.uvIndex} UV`}
-              />
-              <WeatherDetail
-                icon={<Thermometer className="w-3.5 h-3.5" />}
-                label="Dew Point"
-                value={`${weather.dewPoint}°C`}
-              />
             </div>
           </CardContent>
         </Card>
@@ -186,7 +167,7 @@ export function WeatherCard({ weather, hourly, daily }: WeatherCardProps) {
             </CardTitle>
           </CardHeader>
           <CardContent className="flex flex-col justify-end px-5 pb-4 pt-1 gap-2">
-            <SimpleLineChart data={chartData} color="#f97316" height={80} />
+            <SimpleLineChart data={chartData} color="#f97316" height={150} />
             <div className="grid grid-cols-9 gap-1.5">
               {hourly.map((hour) => (
                 <div

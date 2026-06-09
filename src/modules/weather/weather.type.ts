@@ -13,8 +13,6 @@ export type WeatherData = {
   windSpeed: number;
   windDirection: string;
   pressure: number;
-  uvIndex: number;
-  dewPoint: number;
   visibility: number;
 };
 

@@ -12,8 +12,8 @@ import { tasks } from "@/modules/task/task.data";
 export function App() {
   return (
     <div className="min-h-screen bg-[url('https://images.unsplash.com/photo-1517483000871-1dbf64a6e1c6?w=1920&q=80')] bg-cover bg-center bg-fixed">
-      <div className="min-h-screen bg-black/30 backdrop-blur-[1px] py-8 px-4">
-        <div className="max-w-5xl mx-auto space-y-5">
+      <div className="min-h-screen bg-black/30 backdrop-blur-[1px] flex items-center justify-center py-8 px-4">
+        <div className="max-w-5xl w-full space-y-5">
           <Header condition={weatherData.condition} />
           <WeatherCard
             weather={weatherData}
