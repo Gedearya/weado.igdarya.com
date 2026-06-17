@@ -56,11 +56,21 @@ export function TaskCard({ task, condition }: TaskCardProps) {
             <Circle className="w-5 h-5 text-muted-foreground" />
           )}
           <div>
-            <CardTitle
-              className={`text-base ${task.completed ? "line-through text-muted-foreground" : ""}`}
-            >
-              {task.title}
-            </CardTitle>
+            <div className="flex items-center gap-2">
+              <CardTitle
+                className={`text-base ${task.completed ? "line-through text-muted-foreground" : ""}`}
+              >
+                {task.title}
+              </CardTitle>
+              {task.dueDate && (
+                <Badge
+                  variant="outline"
+                  className="bg-purple-100 text-purple-700 border-purple-300 text-[10px] px-1.5 py-0"
+                >
+                  {task.dueDate}
+                </Badge>
+              )}
+            </div>
             <CardDescription className="text-xs">
               {task.description}
             </CardDescription>
@@ -84,14 +94,6 @@ export function TaskCard({ task, condition }: TaskCardProps) {
       <CardContent className="flex items-center gap-2 p-4 pt-2">
         <CategoryBadge category={task.category} />
         {recommended && <RecommendedBadge />}
-        {task.dueDate && (
-          <Badge
-            variant="outline"
-            className="bg-purple-100 text-purple-700 border-purple-300 text-xs"
-          >
-            {task.dueDate}
-          </Badge>
-        )}
       </CardContent>
     </Card>
   );
