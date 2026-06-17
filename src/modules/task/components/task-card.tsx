@@ -12,7 +12,14 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Pencil, Trash2, CheckCircle, Circle } from "lucide-react";
+import {
+  Pencil,
+  Trash2,
+  CheckCircle,
+  Circle,
+  Calendar,
+  Star,
+} from "lucide-react";
 
 type TaskCardProps = {
   task: Task;
@@ -38,7 +45,7 @@ function RecommendedBadge() {
       variant="outline"
       className="bg-orange-100 text-orange-600 border-orange-300"
     >
-      ⭐ Recommended
+      <Star className="w-3 h-3 inline" /> Recommended
     </Badge>
   );
 }
@@ -68,7 +75,8 @@ export function TaskCard({ task, condition }: TaskCardProps) {
                   variant="outline"
                   className="bg-purple-100 text-purple-700 border-purple-300 text-[10px] px-1.5 py-0"
                 >
-                  📅 {formatDueDate(task.dueDate, task.dueTime)}
+                  <Calendar className="w-3 h-3 inline mr-0.5" />
+                  {formatDueDate(task.dueDate, task.dueTime)}
                 </Badge>
               )}
             </div>
@@ -79,15 +87,19 @@ export function TaskCard({ task, condition }: TaskCardProps) {
         </div>
 
         <div className="flex gap-1">
-          <Button variant="ghost" size="icon" className="h-8 w-8">
-            <Pencil className="w-4 h-4" />
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-7 w-7 rounded-full hover:bg-blue-50"
+          >
+            <Pencil className="w-3.5 h-3.5 text-blue-500" />
           </Button>
           <Button
             variant="ghost"
             size="icon"
-            className="h-8 w-8 text-destructive"
+            className="h-7 w-7 rounded-full hover:bg-red-50"
           >
-            <Trash2 className="w-4 h-4" />
+            <Trash2 className="w-3.5 h-3.5 text-red-500" />
           </Button>
         </div>
       </CardHeader>
