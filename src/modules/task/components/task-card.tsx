@@ -84,6 +84,14 @@ export function TaskCard({ task, condition }: TaskCardProps) {
       <CardContent className="flex items-center gap-2 p-4 pt-2">
         <CategoryBadge category={task.category} />
         {recommended && <RecommendedBadge />}
+        {task.dueDate && (
+          <Badge
+            variant="outline"
+            className="bg-purple-100 text-purple-700 border-purple-300 text-xs"
+          >
+            {task.dueDate}
+          </Badge>
+        )}
       </CardContent>
     </Card>
   );

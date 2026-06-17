@@ -8,6 +8,7 @@ export const tasks: Task[] = [
     description: "Morning jog around the park for 30 minutes",
     category: TASK_CATEGORY.OUTDOOR,
     completed: false,
+    dueDate: "Today",
   },
   {
     id: 2,
@@ -22,6 +23,7 @@ export const tasks: Task[] = [
     description: "Water the plants and trim the bushes",
     category: TASK_CATEGORY.OUTDOOR,
     completed: true,
+    dueDate: "Today",
   },
   {
     id: 4,
@@ -29,6 +31,7 @@ export const tasks: Task[] = [
     description: "Prepare lunch for the family",
     category: TASK_CATEGORY.INDOOR,
     completed: true,
+    dueDate: "Wed",
   },
   {
     id: 5,
@@ -36,5 +39,30 @@ export const tasks: Task[] = [
     description: "Ride a bike to the nearby lake",
     category: TASK_CATEGORY.OUTDOOR,
     completed: false,
+    dueDate: "Sat",
+  },
+  {
+    id: 6,
+    title: "Yoga",
+    description: "Indoor yoga session for flexibility",
+    category: TASK_CATEGORY.INDOOR,
+    completed: false,
+    dueDate: "Wed",
+  },
+  {
+    id: 7,
+    title: "Photography",
+    description: "Take photos at the botanical garden",
+    category: TASK_CATEGORY.OUTDOOR,
+    completed: false,
+    dueDate: "Sun",
+  },
+  {
+    id: 8,
+    title: "Clean Garage",
+    description: "Organize and sweep the garage",
+    category: TASK_CATEGORY.INDOOR,
+    completed: false,
+    dueDate: "Thu",
   },
 ];

@@ -31,12 +31,52 @@ export const hourlyForecast: HourlyForecast[] = [
 ];
 
 export const dailyForecast: DailyForecast[] = [
-  { day: "Today", temperature: 34, icon: "☀️" },
-  { day: "Mon", temperature: 33, icon: "⛅" },
-  { day: "Tue", temperature: 32, icon: "⛅" },
-  { day: "Wed", temperature: 32, icon: "⛅" },
-  { day: "Thu", temperature: 30, icon: "⛅" },
-  { day: "Fri", temperature: 31, icon: "⛅" },
-  { day: "Sat", temperature: 31, icon: "⛅" },
-  { day: "Sun", temperature: 31, icon: "☀️" },
+  {
+    day: "Today",
+    temperature: 34,
+    icon: "☀️",
+    condition: WEATHER_CONDITION.CLEAR,
+  },
+  {
+    day: "Mon",
+    temperature: 33,
+    icon: "⛅",
+    condition: WEATHER_CONDITION.CLOUDS,
+  },
+  {
+    day: "Tue",
+    temperature: 32,
+    icon: "⛅",
+    condition: WEATHER_CONDITION.CLOUDS,
+  },
+  {
+    day: "Wed",
+    temperature: 32,
+    icon: "🌧️",
+    condition: WEATHER_CONDITION.RAIN,
+  },
+  {
+    day: "Thu",
+    temperature: 30,
+    icon: "🌧️",
+    condition: WEATHER_CONDITION.RAIN,
+  },
+  {
+    day: "Fri",
+    temperature: 31,
+    icon: "⛅",
+    condition: WEATHER_CONDITION.CLOUDS,
+  },
+  {
+    day: "Sat",
+    temperature: 31,
+    icon: "⛅",
+    condition: WEATHER_CONDITION.CLOUDS,
+  },
+  {
+    day: "Sun",
+    temperature: 31,
+    icon: "☀️",
+    condition: WEATHER_CONDITION.CLEAR,
+  },
 ];

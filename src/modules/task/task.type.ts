@@ -8,4 +8,5 @@ export type Task = {
   category: TaskCategory;
   description: string;
   completed: boolean;
+  dueDate?: string;
 };

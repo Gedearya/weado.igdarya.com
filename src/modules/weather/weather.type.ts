@@ -27,4 +27,5 @@ export type DailyForecast = {
   day: string;
   temperature: number;
   icon: string;
+  condition: WeatherCondition;
 };

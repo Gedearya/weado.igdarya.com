@@ -34,6 +34,13 @@ export function isRecommended(
   return !task.completed && isMatchWeather(task, condition);
 }
 
+export function filterTasksByDay(tasks: Task[], day: string): Task[] {
+  if (day === "Today") {
+    return tasks.filter((task) => task.dueDate === "Today" || !task.dueDate);
+  }
+  return tasks.filter((task) => task.dueDate === day);
+}
+
 export function sortTasks(tasks: Task[], condition: WeatherCondition): Task[] {
   const recommendedTasks = tasks.filter(
     (task) => !task.completed && isMatchWeather(task, condition),

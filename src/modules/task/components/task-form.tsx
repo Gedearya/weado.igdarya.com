@@ -3,9 +3,15 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Plus } from "lucide-react";
+import type { DailyForecast } from "@/modules/weather/weather.type";
 
-export function TaskForm() {
+type TaskFormProps = {
+  daily: DailyForecast[];
+};
+
+export function TaskForm({ daily }: TaskFormProps) {
   return (
     <Card>
       <CardHeader>
@@ -28,22 +34,43 @@ export function TaskForm() {
 
         <div className="space-y-2">
           <Label>Category</Label>
-          <div className="flex gap-4 text-sm">
-            <label className="flex items-center gap-1">
-              <input
-                type="radio"
-                name="category"
-                value="indoor"
-                defaultChecked
-                readOnly
-              />
-              Indoor
-            </label>
-            <label className="flex items-center gap-1">
-              <input type="radio" name="category" value="outdoor" readOnly />
-              Outdoor
-            </label>
-          </div>
+          <RadioGroup defaultValue="indoor" className="flex gap-4">
+            <div className="flex items-center gap-2">
+              <RadioGroupItem value="indoor" id="indoor" />
+              <Label
+                htmlFor="indoor"
+                className="text-sm font-normal cursor-pointer"
+              >
+                Indoor
+              </Label>
+            </div>
+            <div className="flex items-center gap-2">
+              <RadioGroupItem value="outdoor" id="outdoor" />
+              <Label
+                htmlFor="outdoor"
+                className="text-sm font-normal cursor-pointer"
+              >
+                Outdoor
+              </Label>
+            </div>
+          </RadioGroup>
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="dueDate">Due Date</Label>
+          <select
+            id="dueDate"
+            className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+            defaultValue=""
+            disabled
+          >
+            <option value="">No specific day</option>
+            {daily.map((forecast) => (
+              <option key={forecast.day} value={forecast.day}>
+                {forecast.day} — {forecast.temperature}° {forecast.icon}
+              </option>
+            ))}
+          </select>
         </div>
 
         <Button className="w-full">
