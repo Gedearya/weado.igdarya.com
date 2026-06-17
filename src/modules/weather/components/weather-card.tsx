@@ -9,7 +9,6 @@ import {
   WEATHER_GRADIENT,
 } from "@/modules/weather/weather.constant";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { SimpleLineChart } from "@/components/ui/chart";
@@ -59,26 +58,26 @@ export function WeatherCard({ weather, hourly, daily }: WeatherCardProps) {
   return (
     <div className="space-y-3">
       {/* Search + Location */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-1.5 text-sm text-white/80 drop-shadow-sm">
+      <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+        <div className="flex items-center gap-1.5 text-sm text-white font-semibold drop-shadow-sm">
           <MapPin className="w-3.5 h-3.5" />
           <span>{weather.city}</span>
-          <span className="bg-white/20 text-white text-[10px] font-medium px-1.5 py-0.5 rounded-full border border-white/30 ml-1">
+          <span className="bg-white text-gray-800 text-[10px] font-medium px-1.5 py-0.5 rounded-full border border-white/30 ml-1">
             °C
           </span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="relative">
+          <div className="relative flex-1 md:flex-none">
             <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" />
             <Input
               placeholder="Search City"
-              className="pl-8 h-8 text-sm bg-white/90 w-[180px]"
+              className="pl-8 h-8 text-sm bg-white/90 w-full md:w-[180px]"
               readOnly
             />
           </div>
-          <Button variant="outline" size="icon" className="h-8 w-8 bg-white/90">
-            <MapPin className="w-3.5 h-3.5" />
-          </Button>
+          <button className="h-8 w-8 flex items-center justify-center rounded-md border border-white/30 bg-white/90 shrink-0">
+            <MapPin className="w-3.5 h-3.5 text-muted-foreground" />
+          </button>
         </div>
       </div>
 
