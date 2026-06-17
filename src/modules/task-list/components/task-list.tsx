@@ -5,7 +5,6 @@ import {
 } from "@/modules/task-list/task-list.data";
 import { TaskCard } from "@/modules/task/components/task-card";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 
 export function TaskList({ tasks, condition, selectedDay }: TaskListProps) {
   const filteredTasks = filterTasksByDay(tasks, selectedDay);
@@ -14,15 +13,7 @@ export function TaskList({ tasks, condition, selectedDay }: TaskListProps) {
   return (
     <Card className="h-full flex flex-col">
       <CardHeader className="pb-3">
-        <div className="flex items-center justify-between">
-          <CardTitle className="text-lg">Task List</CardTitle>
-          <Badge
-            variant="outline"
-            className="bg-orange-100 text-orange-700 border-orange-300"
-          >
-            {selectedDay}
-          </Badge>
-        </div>
+        <CardTitle className="text-lg">Task List</CardTitle>
       </CardHeader>
       <CardContent className="space-y-3 overflow-y-auto max-h-[400px]">
         {sortedTasks.length === 0 ? (

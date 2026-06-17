@@ -35,6 +35,9 @@ export function isRecommended(
 }
 
 export function filterTasksByDay(tasks: Task[], day: string): Task[] {
+  if (day === "All") {
+    return tasks;
+  }
   if (day === "Today") {
     return tasks.filter((task) => task.dueDate === "Today" || !task.dueDate);
   }

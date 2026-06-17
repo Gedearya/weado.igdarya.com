@@ -9,11 +9,9 @@ import {
 } from "@/modules/weather/weather.data";
 import { tasks } from "@/modules/task/task.data";
 
-// Static: "Today" is the default selected day
-const selectedDay = "Today";
-const selectedCondition =
-  dailyForecast.find((d) => d.day === selectedDay)?.condition ??
-  weatherData.condition;
+// Static: "All" is the default selected day
+const selectedDay = "All";
+const selectedCondition = weatherData.condition;
 
 export function App() {
   return (

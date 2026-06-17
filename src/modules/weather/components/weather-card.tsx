@@ -83,15 +83,17 @@ export function WeatherCard({ weather, hourly, daily }: WeatherCardProps) {
 
       {/* Daily Tabs */}
       <div className="flex gap-1.5 overflow-x-auto">
-        {daily.map((day, index) => (
+        <Badge
+          variant="default"
+          className="shrink-0 px-3 py-1 cursor-pointer text-xs bg-orange-500 hover:bg-orange-600 text-white border-none"
+        >
+          All
+        </Badge>
+        {daily.map((day) => (
           <Badge
             key={day.day}
-            variant={index === 0 ? "default" : "outline"}
-            className={`shrink-0 px-3 py-1 cursor-pointer text-xs ${
-              index === 0
-                ? "bg-orange-500 hover:bg-orange-600 text-white border-none"
-                : "bg-white/20 text-white border-white/30"
-            }`}
+            variant="outline"
+            className="shrink-0 px-3 py-1 cursor-pointer text-xs bg-white/20 text-white border-white/30"
           >
             {day.day} {day.temperature}° {day.icon}
           </Badge>
