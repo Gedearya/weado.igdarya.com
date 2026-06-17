@@ -61,9 +61,16 @@ export function SimpleLineChart({
 }: LineChartProps) {
   return (
     <ResponsiveContainer width="100%" height={height}>
-      <AreaChart data={data} margin={{ top: 5, right: 5, left: 5, bottom: 0 }}>
+      <AreaChart data={data} margin={{ top: 5, right: 5, left: 0, bottom: 0 }}>
         <XAxis dataKey="label" hide />
-        <YAxis hide domain={["dataMin - 1", "dataMax + 1"]} />
+        <YAxis
+          domain={["dataMin - 1", "dataMax + 1"]}
+          tick={{ fontSize: 10, fill: "#9ca3af" }}
+          axisLine={false}
+          tickLine={false}
+          width={35}
+          tickFormatter={(value: number) => `${value}°`}
+        />
         <Tooltip
           content={<CustomTooltip />}
           cursor={{ stroke: "#9ca3af", strokeDasharray: "3 3" }}

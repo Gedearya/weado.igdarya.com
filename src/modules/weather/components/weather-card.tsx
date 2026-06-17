@@ -63,6 +63,9 @@ export function WeatherCard({ weather, hourly, daily }: WeatherCardProps) {
         <div className="flex items-center gap-1.5 text-sm text-white/80 drop-shadow-sm">
           <MapPin className="w-3.5 h-3.5" />
           <span>{weather.city}</span>
+          <span className="bg-white/20 text-white text-[10px] font-medium px-1.5 py-0.5 rounded-full border border-white/30 ml-1">
+            °C
+          </span>
         </div>
         <div className="flex items-center gap-2">
           <div className="relative">
