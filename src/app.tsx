@@ -9,7 +9,6 @@ import {
 } from "@/modules/weather/weather.data";
 import { tasks } from "@/modules/task/task.data";
 
-// Static: "All" is the default selected day
 const selectedDay = "All";
 const selectedCondition = weatherData.condition;
 

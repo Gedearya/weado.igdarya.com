@@ -1,6 +1,7 @@
 import type { Task, TaskCategory } from "@/modules/task/task.type";
 import { TASK_CATEGORY } from "@/modules/task/task.constant";
 import type { WeatherCondition } from "@/modules/weather/weather.type";
+import type { HourlyForecast } from "@/modules/weather/weather.type";
 import { WEATHER_CONDITION } from "@/modules/weather/weather.constant";
 
 const INDOOR_CONDITIONS: WeatherCondition[] = [
@@ -42,32 +43,26 @@ export function filterTasksByDay(tasks: Task[], day: string): Task[] {
 }
 
 export function sortTasks(tasks: Task[], condition: WeatherCondition): Task[] {
-  const recommendedTasks = tasks.filter(
+  const recommended = tasks.filter(
     (task) => !task.completed && isMatchWeather(task, condition),
   );
-  const notRecommendedTasks = tasks.filter(
+  const notRecommended = tasks.filter(
     (task) => !task.completed && !isMatchWeather(task, condition),
   );
-  const completedMatchTasks = tasks.filter(
+  const completedMatch = tasks.filter(
     (task) => task.completed && isMatchWeather(task, condition),
   );
-  const completedNotMatchTasks = tasks.filter(
+  const completedNoMatch = tasks.filter(
     (task) => task.completed && !isMatchWeather(task, condition),
   );
   return [
-    ...recommendedTasks,
-    ...notRecommendedTasks,
-    ...completedMatchTasks,
-    ...completedNotMatchTasks,
+    ...recommended,
+    ...notRecommended,
+    ...completedMatch,
+    ...completedNoMatch,
   ];
 }
 
-import type { HourlyForecast } from "@/modules/weather/weather.type";
-
-/**
- * Find the closest forecast slot to a given time.
- * e.g., "14:40" → closest to "15:00" slot (3-hour interval)
- */
 export function findClosestForecast(
   time: string,
   forecasts: HourlyForecast[],

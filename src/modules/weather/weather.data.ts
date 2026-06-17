@@ -18,7 +18,6 @@ export const weatherData: WeatherData = {
   visibility: 10,
 };
 
-// Mock: OpenWeather free tier 3-hour interval (today only, 8 slots)
 export const hourlyForecast: HourlyForecast[] = [
   {
     datetime: "2026-06-17 00:00",
@@ -86,7 +85,6 @@ export const hourlyForecast: HourlyForecast[] = [
   },
 ];
 
-// Mock: 5-day forecast
 export const dailyForecast: DailyForecast[] = [
   {
     date: "2026-06-17",

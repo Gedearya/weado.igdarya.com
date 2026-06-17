@@ -57,7 +57,6 @@ export function WeatherCard({ weather, hourly, daily }: WeatherCardProps) {
 
   return (
     <div className="space-y-3">
-      {/* Search + Location */}
       <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
         <div className="flex items-center gap-1.5 text-sm text-white font-semibold drop-shadow-sm">
           <MapPin className="w-3.5 h-3.5" />
@@ -81,7 +80,6 @@ export function WeatherCard({ weather, hourly, daily }: WeatherCardProps) {
         </div>
       </div>
 
-      {/* Daily Tabs */}
       <div className="flex gap-1.5 overflow-x-auto">
         <Badge
           variant="default"
@@ -100,12 +98,9 @@ export function WeatherCard({ weather, hourly, daily }: WeatherCardProps) {
         ))}
       </div>
 
-      {/* Main Weather Grid */}
       <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
-        {/* Current Weather Card with background image */}
         <Card className="md:col-span-2 border-none overflow-hidden">
           <CardContent className="p-0">
-            {/* Sky image with weather info overlay */}
             <div
               className="relative h-[280px] bg-cover bg-center rounded-t-lg"
               style={{ backgroundImage: `url('${bgImage}')` }}
@@ -137,7 +132,6 @@ export function WeatherCard({ weather, hourly, daily }: WeatherCardProps) {
               </div>
             </div>
 
-            {/* Weather details grid */}
             <div className="grid grid-cols-2 gap-2 p-2">
               <WeatherDetail
                 icon={<Wind className="w-3.5 h-3.5" />}
@@ -163,7 +157,6 @@ export function WeatherCard({ weather, hourly, daily }: WeatherCardProps) {
           </CardContent>
         </Card>
 
-        {/* Hourly Forecast with Chart */}
         <Card className="md:col-span-3 flex flex-col justify-between">
           <CardHeader className="pb-0 px-5 pt-4">
             <CardTitle className="text-base font-semibold">

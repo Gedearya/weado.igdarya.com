@@ -17,8 +17,8 @@ export type WeatherData = {
 };
 
 export type HourlyForecast = {
-  datetime: string; // ISO format "2026-06-17 15:00"
-  time: string; // display format "15:00"
+  datetime: string;
+  time: string;
   temperature: number;
   rainChance: number;
   icon: string;
@@ -26,8 +26,8 @@ export type HourlyForecast = {
 };
 
 export type DailyForecast = {
-  date: string; // ISO format "2026-06-17"
-  day: string; // display format "Today", "Wed 18"
+  date: string;
+  day: string;
   temperature: number;
   icon: string;
   condition: WeatherCondition;
