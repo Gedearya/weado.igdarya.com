@@ -4,7 +4,6 @@ import type {
   DailyForecast,
 } from "@/modules/weather/weather.type";
 import {
-  WEATHER_CONDITION,
   WEATHER_BACKGROUND,
   WEATHER_GRADIENT,
 } from "@/modules/weather/weather.constant";
@@ -12,6 +11,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { SimpleLineChart } from "@/components/ui/chart";
+import { DAY_FILTER } from "@/modules/task-list/task-list.constant";
 import { MapPin, Search, Droplets, Wind, Eye, Gauge } from "lucide-react";
 
 type WeatherCardProps = {
@@ -45,9 +45,8 @@ export function WeatherCard({ weather, hourly, daily }: WeatherCardProps) {
   const bgImage = WEATHER_BACKGROUND[condition] || WEATHER_BACKGROUND.CLEAR;
   const gradient = WEATHER_GRADIENT[condition] || WEATHER_GRADIENT.CLEAR;
 
-  const isSnow = condition === WEATHER_CONDITION.SNOW;
-  const textColor = isSnow ? "text-gray-800" : "text-white";
-  const textMuted = isSnow ? "text-gray-600" : "text-white/70";
+  const textColor = "text-white";
+  const textMuted = "text-white/70";
 
   const chartData = hourly.map((hour) => ({
     label: hour.time,
@@ -85,7 +84,7 @@ export function WeatherCard({ weather, hourly, daily }: WeatherCardProps) {
           variant="default"
           className="shrink-0 px-3 py-1 cursor-pointer text-xs bg-orange-500 hover:bg-orange-600 text-white border-none"
         >
-          All
+          {DAY_FILTER.ALL}
         </Badge>
         {daily.map((day) => (
           <Badge

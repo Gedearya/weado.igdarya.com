@@ -1,17 +1,10 @@
 import type { Task, TaskCategory } from "@/modules/task/task.type";
-import { TASK_CATEGORY } from "@/modules/task/task.constant";
-import type { WeatherCondition } from "@/modules/weather/weather.type";
-import type { HourlyForecast } from "@/modules/weather/weather.type";
-import { WEATHER_CONDITION } from "@/modules/weather/weather.constant";
-
-const INDOOR_CONDITIONS: WeatherCondition[] = [
-  WEATHER_CONDITION.RAIN,
-  WEATHER_CONDITION.THUNDERSTORM,
-  WEATHER_CONDITION.DRIZZLE,
-  WEATHER_CONDITION.SNOW,
-  WEATHER_CONDITION.TORNADO,
-  WEATHER_CONDITION.SQUALL,
-];
+import { TASK_CATEGORY, INDOOR_CONDITIONS } from "@/modules/task/task.constant";
+import { DAY_FILTER } from "@/modules/task-list/task-list.constant";
+import type {
+  WeatherCondition,
+  HourlyForecast,
+} from "@/modules/weather/weather.type";
 
 export function getRecommendedCategory(
   condition: WeatherCondition,
@@ -36,7 +29,7 @@ export function isRecommended(
 }
 
 export function filterTasksByDay(tasks: Task[], day: string): Task[] {
-  if (day === "All") {
+  if (day === DAY_FILTER.ALL) {
     return tasks;
   }
   return tasks.filter((task) => task.dueDate === day || !task.dueDate);

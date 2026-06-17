@@ -7,9 +7,10 @@ import {
   hourlyForecast,
   dailyForecast,
 } from "@/modules/weather/weather.data";
+import { DAY_FILTER } from "@/modules/task-list/task-list.constant";
 import { tasks } from "@/modules/task/task.data";
 
-const selectedDay = "All";
+const selectedDay = DAY_FILTER.ALL;
 const selectedCondition = weatherData.condition;
 
 export function App() {
