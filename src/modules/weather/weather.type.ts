@@ -17,14 +17,17 @@ export type WeatherData = {
 };
 
 export type HourlyForecast = {
-  time: string;
+  datetime: string; // ISO format "2026-06-17 15:00"
+  time: string; // display format "15:00"
   temperature: number;
   rainChance: number;
   icon: string;
+  condition: WeatherCondition;
 };
 
 export type DailyForecast = {
-  day: string;
+  date: string; // ISO format "2026-06-17"
+  day: string; // display format "Today", "Wed 18"
   temperature: number;
   icon: string;
   condition: WeatherCondition;

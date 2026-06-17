@@ -91,11 +91,11 @@ export function WeatherCard({ weather, hourly, daily }: WeatherCardProps) {
         </Badge>
         {daily.map((day) => (
           <Badge
-            key={day.day}
+            key={day.date}
             variant="outline"
             className="shrink-0 px-3 py-1 cursor-pointer text-xs bg-white/20 text-white border-white/30"
           >
-            {day.day} {day.temperature}° {day.icon}
+            {day.day} · {day.temperature}° {day.icon}
           </Badge>
         ))}
       </div>
@@ -172,10 +172,10 @@ export function WeatherCard({ weather, hourly, daily }: WeatherCardProps) {
           </CardHeader>
           <CardContent className="flex flex-col justify-end px-5 pb-4 pt-1 gap-2">
             <SimpleLineChart data={chartData} color="#f97316" height={150} />
-            <div className="grid grid-cols-9 gap-1.5">
+            <div className="grid grid-cols-4 md:grid-cols-8 gap-1.5">
               {hourly.map((hour) => (
                 <div
-                  key={hour.time}
+                  key={hour.datetime}
                   className="flex flex-col items-center gap-0.5 bg-amber-50 rounded-lg py-2 px-1"
                 >
                   <p className="text-[10px] text-muted-foreground">

@@ -56,21 +56,28 @@ export function TaskForm({ daily }: TaskFormProps) {
           </RadioGroup>
         </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="dueDate">Due Date</Label>
-          <select
-            id="dueDate"
-            className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
-            defaultValue=""
-            disabled
-          >
-            <option value="">No specific day</option>
-            {daily.map((forecast) => (
-              <option key={forecast.day} value={forecast.day}>
-                {forecast.day} — {forecast.temperature}° {forecast.icon}
-              </option>
-            ))}
-          </select>
+        <div className="grid grid-cols-2 gap-3">
+          <div className="space-y-2">
+            <Label htmlFor="dueDate">Due Date</Label>
+            <select
+              id="dueDate"
+              className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+              defaultValue=""
+              disabled
+            >
+              <option value="">No date</option>
+              {daily.map((forecast) => (
+                <option key={forecast.date} value={forecast.date}>
+                  {forecast.day} {forecast.icon}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="dueTime">Time</Label>
+            <Input id="dueTime" type="time" className="w-full" readOnly />
+          </div>
         </div>
 
         <Button className="w-full">

@@ -38,10 +38,7 @@ export function filterTasksByDay(tasks: Task[], day: string): Task[] {
   if (day === "All") {
     return tasks;
   }
-  if (day === "Today") {
-    return tasks.filter((task) => task.dueDate === "Today" || !task.dueDate);
-  }
-  return tasks.filter((task) => task.dueDate === day);
+  return tasks.filter((task) => task.dueDate === day || !task.dueDate);
 }
 
 export function sortTasks(tasks: Task[], condition: WeatherCondition): Task[] {
@@ -63,4 +60,36 @@ export function sortTasks(tasks: Task[], condition: WeatherCondition): Task[] {
     ...completedMatchTasks,
     ...completedNotMatchTasks,
   ];
+}
+
+import type { HourlyForecast } from "@/modules/weather/weather.type";
+
+/**
+ * Find the closest forecast slot to a given time.
+ * e.g., "14:40" → closest to "15:00" slot (3-hour interval)
+ */
+export function findClosestForecast(
+  time: string,
+  forecasts: HourlyForecast[],
+): HourlyForecast | undefined {
+  if (!forecasts.length) return undefined;
+
+  const [hours, minutes] = time.split(":").map(Number);
+  const timeInMinutes = hours * 60 + minutes;
+
+  let closest = forecasts[0];
+  let minDiff = Infinity;
+
+  for (const forecast of forecasts) {
+    const [fH, fM] = forecast.time.split(":").map(Number);
+    const forecastMinutes = fH * 60 + fM;
+    const diff = Math.abs(forecastMinutes - timeInMinutes);
+
+    if (diff < minDiff) {
+      minDiff = diff;
+      closest = forecast;
+    }
+  }
+
+  return closest;
 }

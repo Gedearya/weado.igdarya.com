@@ -13,10 +13,23 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Pencil, Trash2, CheckCircle, Circle } from "lucide-react";
 
+import { isToday, isTomorrow, format } from "date-fns";
+
 type TaskCardProps = {
   task: Task;
   condition: WeatherCondition;
 };
+
+function formatDueDate(date: string, time?: string): string {
+  const d = new Date(date);
+  const dayLabel = isToday(d)
+    ? "Today"
+    : isTomorrow(d)
+      ? "Tomorrow"
+      : format(d, "EEE d");
+
+  return time ? `${dayLabel} · ${time}` : dayLabel;
+}
 
 function CategoryBadge({ category }: { category: TaskCategory }) {
   const className =
@@ -67,7 +80,7 @@ export function TaskCard({ task, condition }: TaskCardProps) {
                   variant="outline"
                   className="bg-purple-100 text-purple-700 border-purple-300 text-[10px] px-1.5 py-0"
                 >
-                  {task.dueDate}
+                  {formatDueDate(task.dueDate, task.dueTime)}
                 </Badge>
               )}
             </div>

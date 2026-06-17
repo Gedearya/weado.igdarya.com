@@ -8,5 +8,6 @@ export type Task = {
   category: TaskCategory;
   description: string;
   completed: boolean;
-  dueDate?: string;
+  dueDate?: string; // ISO date "2026-06-17"
+  dueTime?: string; // time slot "15:00" (from 3-hour interval)
 };
