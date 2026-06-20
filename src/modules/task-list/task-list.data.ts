@@ -1,10 +1,7 @@
 import type { Task, TaskCategory } from "@/modules/task/task.type";
 import { TASK_CATEGORY, INDOOR_CONDITIONS } from "@/modules/task/task.constant";
 import { DAY_FILTER } from "@/modules/task-list/task-list.constant";
-import type {
-  WeatherCondition,
-  HourlyForecast,
-} from "@/modules/weather/weather.type";
+import type { WeatherCondition } from "@/modules/weather/weather.type";
 
 export function getRecommendedCategory(
   condition: WeatherCondition,

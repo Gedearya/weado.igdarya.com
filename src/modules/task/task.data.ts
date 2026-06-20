@@ -17,6 +17,8 @@ export const tasks: Task[] = [
     description: "Read a chapter of a programming book",
     category: TASK_CATEGORY.INDOOR,
     completed: false,
+    dueDate: "2026-06-17",
+    dueTime: "21:00",
   },
   {
     id: 3,
@@ -70,5 +72,6 @@ export const tasks: Task[] = [
     category: TASK_CATEGORY.INDOOR,
     completed: false,
     dueDate: "2026-06-19",
+    dueTime: "09:00",
   },
 ];
