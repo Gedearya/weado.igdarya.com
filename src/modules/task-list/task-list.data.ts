@@ -55,29 +55,3 @@ export function sortTasks(tasks: Task[], condition: WeatherCondition): Task[] {
     ...completedNoMatch,
   ];
 }
-
-export function findClosestForecast(
-  time: string,
-  forecasts: HourlyForecast[],
-): HourlyForecast | undefined {
-  if (!forecasts.length) return undefined;
-
-  const [hours, minutes] = time.split(":").map(Number);
-  const timeInMinutes = hours * 60 + minutes;
-
-  let closest = forecasts[0];
-  let minDiff = Infinity;
-
-  for (const forecast of forecasts) {
-    const [fH, fM] = forecast.time.split(":").map(Number);
-    const forecastMinutes = fH * 60 + fM;
-    const diff = Math.abs(forecastMinutes - timeInMinutes);
-
-    if (diff < minDiff) {
-      minDiff = diff;
-      closest = forecast;
-    }
-  }
-
-  return closest;
-}
