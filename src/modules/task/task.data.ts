@@ -8,7 +8,7 @@ export const tasks: Task[] = [
     description: "Morning jog around the park for 30 minutes",
     category: TASK_CATEGORY.OUTDOOR,
     completed: false,
-    dueDate: "2026-06-17",
+    dueDate: "2026-06-21",
     dueTime: "06:00",
   },
   {
@@ -17,7 +17,7 @@ export const tasks: Task[] = [
     description: "Read a chapter of a programming book",
     category: TASK_CATEGORY.INDOOR,
     completed: false,
-    dueDate: "2026-06-17",
+    dueDate: "2026-06-21",
     dueTime: "21:00",
   },
   {
@@ -26,7 +26,7 @@ export const tasks: Task[] = [
     description: "Water the plants and trim the bushes",
     category: TASK_CATEGORY.OUTDOOR,
     completed: true,
-    dueDate: "2026-06-17",
+    dueDate: "2026-06-21",
     dueTime: "15:00",
   },
   {
@@ -34,8 +34,8 @@ export const tasks: Task[] = [
     title: "Cooking",
     description: "Prepare lunch for the family",
     category: TASK_CATEGORY.INDOOR,
-    completed: true,
-    dueDate: "2026-06-18",
+    completed: false,
+    dueDate: "2026-06-22",
     dueTime: "12:00",
   },
   {
@@ -44,7 +44,7 @@ export const tasks: Task[] = [
     description: "Ride a bike to the nearby lake",
     category: TASK_CATEGORY.OUTDOOR,
     completed: false,
-    dueDate: "2026-06-21",
+    dueDate: "2026-06-25",
     dueTime: "06:00",
   },
   {
@@ -53,7 +53,7 @@ export const tasks: Task[] = [
     description: "Indoor yoga session for flexibility",
     category: TASK_CATEGORY.INDOOR,
     completed: false,
-    dueDate: "2026-06-18",
+    dueDate: "2026-06-23",
     dueTime: "18:00",
   },
   {
@@ -62,7 +62,7 @@ export const tasks: Task[] = [
     description: "Take photos at the botanical garden",
     category: TASK_CATEGORY.OUTDOOR,
     completed: false,
-    dueDate: "2026-06-21",
+    dueDate: "2026-06-25",
     dueTime: "09:00",
   },
   {
@@ -71,7 +71,7 @@ export const tasks: Task[] = [
     description: "Organize and sweep the garage",
     category: TASK_CATEGORY.INDOOR,
     completed: false,
-    dueDate: "2026-06-19",
+    dueDate: "2026-06-24",
     dueTime: "09:00",
   },
 ];
