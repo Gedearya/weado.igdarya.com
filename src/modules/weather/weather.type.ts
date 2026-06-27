@@ -29,6 +29,13 @@ export type DailyForecast = {
   date: string;
   day: string;
   temperature: number;
+  feelsLike: number;
   icon: string;
   condition: WeatherCondition;
+  description: string;
+  humidity: number;
+  windSpeed: number;
+  windDirection: string;
+  pressure: number;
+  visibility: number;
 };

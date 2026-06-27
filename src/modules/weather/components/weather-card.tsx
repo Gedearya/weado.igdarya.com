@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import type {
   WeatherData,
   HourlyForecast,
@@ -49,15 +50,25 @@ export function WeatherCard({
   const selectedDayForecast = dailyForecast.find(
     (forecast) => forecast.date === selectedDay,
   );
-  const displayCondition = selectedDayForecast?.condition ?? weather.condition;
+
   const displayTemperature =
     selectedDayForecast?.temperature ?? weather.temperature;
-  const displayDescription = selectedDayForecast
-    ? selectedDayForecast.condition.charAt(0) +
-      selectedDayForecast.condition.slice(1).toLowerCase()
-    : weather.description;
+  const displayFeelsLike = selectedDayForecast?.feelsLike ?? weather.feelsLike;
+  const displayDescription =
+    selectedDayForecast?.description ?? weather.description;
+  const displayCondition = selectedDayForecast?.condition ?? weather.condition;
+  const displayHumidity = selectedDayForecast?.humidity ?? weather.humidity;
+  const displayWindSpeed = selectedDayForecast?.windSpeed ?? weather.windSpeed;
+  const displayWindDirection =
+    selectedDayForecast?.windDirection ?? weather.windDirection;
+  const displayPressure = selectedDayForecast?.pressure ?? weather.pressure;
+  const displayVisibility =
+    selectedDayForecast?.visibility ?? weather.visibility;
+
   const backgroundImage =
     WEATHER_BACKGROUND[displayCondition] || WEATHER_BACKGROUND.CLEAR;
+  const currentTimeFormatted = format(new Date(), "h:mm a");
+
   const temperatureChartData = hourlyForecast.map((hour) => ({
     label: hour.time,
     value: hour.temperature,
@@ -118,7 +129,9 @@ export function WeatherCard({
             >
               <div className="relative h-full flex flex-col justify-between p-5">
                 <div className="flex justify-end">
-                  <span className="text-xs text-white/70">11:57 AM</span>
+                  <span className="text-xs text-white/70">
+                    {currentTimeFormatted}
+                  </span>
                 </div>
                 <div className="flex items-end justify-between">
                   <p className="text-6xl font-bold text-white drop-shadow-lg">
@@ -129,7 +142,7 @@ export function WeatherCard({
                       {displayDescription}
                     </p>
                     <p className="text-sm text-white/70 drop-shadow-sm">
-                      Feels like {weather.feelsLike}°
+                      Feels like {displayFeelsLike}°
                     </p>
                   </div>
                 </div>
@@ -139,22 +152,22 @@ export function WeatherCard({
               <WeatherDetailItem
                 icon={<Wind className="w-3.5 h-3.5" />}
                 label="Wind"
-                value={`${weather.windSpeed} m/s ${weather.windDirection}`}
+                value={`${displayWindSpeed} m/s ${displayWindDirection}`}
               />
               <WeatherDetailItem
                 icon={<Droplets className="w-3.5 h-3.5" />}
                 label="Humidity"
-                value={`${weather.humidity}%`}
+                value={`${displayHumidity}%`}
               />
               <WeatherDetailItem
                 icon={<Eye className="w-3.5 h-3.5" />}
                 label="Visibility"
-                value={`${weather.visibility} km`}
+                value={`${displayVisibility} km`}
               />
               <WeatherDetailItem
                 icon={<Gauge className="w-3.5 h-3.5" />}
                 label="Pressure"
-                value={`${weather.pressure} hPa`}
+                value={`${displayPressure} hPa`}
               />
             </div>
           </CardContent>

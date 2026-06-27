@@ -7,6 +7,7 @@ import {
   weatherData,
   hourlyForecast,
   dailyForecast,
+  allHourlyForecasts,
 } from "@/modules/weather/weather.data";
 import { DAY_FILTER } from "@/modules/task-list/task-list.constant";
 import { useTasks } from "@/modules/task/task.hooks";
@@ -24,6 +25,11 @@ export function App() {
       : (dailyForecast.find((forecast) => forecast.date === selectedDay)
           ?.condition ?? weatherData.condition);
 
+  const activeHourlyForecast =
+    selectedDay === DAY_FILTER.ALL
+      ? hourlyForecast
+      : (allHourlyForecasts[selectedDay] ?? hourlyForecast);
+
   return (
     <div className="min-h-screen bg-[url('https://images.unsplash.com/photo-1517483000871-1dbf64a6e1c6?w=1920&q=80')] bg-cover bg-center bg-fixed">
       <div className="min-h-screen bg-black/30 backdrop-blur-[1px] py-8 px-4">
@@ -31,7 +37,7 @@ export function App() {
           <Header weatherCondition={weatherData.condition} />
           <WeatherCard
             weather={weatherData}
-            hourlyForecast={hourlyForecast}
+            hourlyForecast={activeHourlyForecast}
             dailyForecast={dailyForecast}
             selectedDay={selectedDay}
             onSelectDay={setSelectedDay}
