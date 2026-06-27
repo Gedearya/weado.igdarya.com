@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { format, parseISO } from "date-fns";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -12,7 +12,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Plus, Calendar as CalendarIcon, Clock } from "lucide-react";
+import { Plus, Calendar as CalendarIcon, Clock, Save, X } from "lucide-react";
 import { TASK_CATEGORY } from "@/modules/task/task.constant";
 import type {
   DailyForecast,
@@ -24,13 +24,19 @@ import { cn } from "@/lib/utils";
 type TaskFormProps = {
   dailyForecast: DailyForecast[];
   hourlyForecast: HourlyForecast[];
+  taskToEdit: Task | null;
   onAddTask: (task: Omit<Task, "id">) => void;
+  onUpdateTask: (taskId: number, fields: Partial<Omit<Task, "id">>) => void;
+  onCancelEdit: () => void;
 };
 
 export function TaskForm({
   dailyForecast,
   hourlyForecast,
+  taskToEdit,
   onAddTask,
+  onUpdateTask,
+  onCancelEdit,
 }: TaskFormProps) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -38,7 +44,19 @@ export function TaskForm({
   const [dueDate, setDueDate] = useState("");
   const [dueTime, setDueTime] = useState("");
 
-  const DEFAULT_SLOTS = [
+  const isEditMode = taskToEdit !== null;
+
+  useEffect(() => {
+    if (taskToEdit) {
+      setTitle(taskToEdit.title);
+      setDescription(taskToEdit.description);
+      setCategory(taskToEdit.category);
+      setDueDate(taskToEdit.dueDate ?? "");
+      setDueTime(taskToEdit.dueTime ?? "");
+    }
+  }, [taskToEdit]);
+
+  const DEFAULT_TIME_SLOTS = [
     "00:00",
     "03:00",
     "06:00",
@@ -56,20 +74,9 @@ export function TaskForm({
     : [];
 
   const availableTimeSlots =
-    forecastTimeSlots.length > 0 ? forecastTimeSlots : DEFAULT_SLOTS;
+    forecastTimeSlots.length > 0 ? forecastTimeSlots : DEFAULT_TIME_SLOTS;
 
-  const handleSubmit = () => {
-    if (!title.trim()) return;
-
-    onAddTask({
-      title: title.trim(),
-      description: description.trim(),
-      category,
-      completed: false,
-      ...(dueDate && { dueDate }),
-      ...(dueTime && { dueTime }),
-    });
-
+  const resetForm = () => {
     setTitle("");
     setDescription("");
     setCategory(TASK_CATEGORY.INDOOR);
@@ -77,10 +84,54 @@ export function TaskForm({
     setDueTime("");
   };
 
+  const handleSubmit = () => {
+    if (!title.trim()) return;
+
+    if (isEditMode) {
+      onUpdateTask(taskToEdit.id, {
+        title: title.trim(),
+        description: description.trim(),
+        category,
+        ...(dueDate ? { dueDate } : { dueDate: undefined }),
+        ...(dueTime ? { dueTime } : { dueTime: undefined }),
+      });
+    } else {
+      onAddTask({
+        title: title.trim(),
+        description: description.trim(),
+        category,
+        completed: false,
+        ...(dueDate && { dueDate }),
+        ...(dueTime && { dueTime }),
+      });
+    }
+
+    resetForm();
+  };
+
+  const handleCancelEdit = () => {
+    resetForm();
+    onCancelEdit();
+  };
+
   return (
     <Card className="bg-white/95 backdrop-blur-sm">
       <CardHeader>
-        <CardTitle className="text-lg">Add New Task</CardTitle>
+        <div className="flex items-center justify-between">
+          <CardTitle className="text-lg">
+            {isEditMode ? "Edit Task" : "Add New Task"}
+          </CardTitle>
+          {isEditMode && (
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-7 w-7 rounded-full"
+              onClick={handleCancelEdit}
+            >
+              <X className="w-4 h-4" />
+            </Button>
+          )}
+        </div>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="space-y-2">
@@ -195,8 +246,17 @@ export function TaskForm({
         </div>
 
         <Button className="w-full" onClick={handleSubmit}>
-          <Plus className="w-4 h-4" />
-          Add Task
+          {isEditMode ? (
+            <>
+              <Save className="w-4 h-4" />
+              Save Changes
+            </>
+          ) : (
+            <>
+              <Plus className="w-4 h-4" />
+              Add Task
+            </>
+          )}
         </Button>
       </CardContent>
     </Card>

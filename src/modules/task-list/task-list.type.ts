@@ -6,5 +6,6 @@ export type TaskListProps = {
   weatherCondition: WeatherCondition;
   selectedDay: string;
   onToggleTask: (id: number) => void;
+  onEditTask: (task: Task) => void;
   onDeleteTask: (id: number) => void;
 };

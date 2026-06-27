@@ -10,10 +10,13 @@ import {
 } from "@/modules/weather/weather.data";
 import { DAY_FILTER } from "@/modules/task-list/task-list.constant";
 import { useTasks } from "@/modules/task/task.hooks";
+import type { Task } from "@/modules/task/task.type";
 
 export function App() {
   const [selectedDay, setSelectedDay] = useState<string>(DAY_FILTER.ALL);
-  const { tasks, addTask, toggleTaskComplete, deleteTask } = useTasks();
+  const [taskToEdit, setTaskToEdit] = useState<Task | null>(null);
+  const { tasks, addTask, updateTask, toggleTaskComplete, deleteTask } =
+    useTasks();
 
   const currentWeatherCondition =
     selectedDay === DAY_FILTER.ALL
@@ -38,7 +41,10 @@ export function App() {
               <TaskForm
                 dailyForecast={dailyForecast}
                 hourlyForecast={hourlyForecast}
+                taskToEdit={taskToEdit}
                 onAddTask={addTask}
+                onUpdateTask={updateTask}
+                onCancelEdit={() => setTaskToEdit(null)}
               />
             </div>
             <div className="md:col-span-3">
@@ -47,6 +53,7 @@ export function App() {
                 weatherCondition={currentWeatherCondition}
                 selectedDay={selectedDay}
                 onToggleTask={toggleTaskComplete}
+                onEditTask={setTaskToEdit}
                 onDeleteTask={deleteTask}
               />
             </div>

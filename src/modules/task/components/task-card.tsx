@@ -25,6 +25,7 @@ type TaskCardProps = {
   task: Task;
   weatherCondition: WeatherCondition;
   onToggleComplete: () => void;
+  onEdit: () => void;
   onDelete: () => void;
 };
 
@@ -56,6 +57,7 @@ export function TaskCard({
   task,
   weatherCondition,
   onToggleComplete,
+  onEdit,
   onDelete,
 }: TaskCardProps) {
   const isRecommended = isTaskRecommendedForWeather(task, weatherCondition);
@@ -108,6 +110,7 @@ export function TaskCard({
             variant="ghost"
             size="icon"
             className="h-7 w-7 rounded-full hover:bg-blue-100 transition-colors duration-150"
+            onClick={onEdit}
           >
             <Pencil className="w-3.5 h-3.5 text-blue-500" />
           </Button>

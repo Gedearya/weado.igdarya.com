@@ -11,6 +11,7 @@ export function TaskList({
   weatherCondition,
   selectedDay,
   onToggleTask,
+  onEditTask,
   onDeleteTask,
 }: TaskListProps) {
   const filteredTasks = filterTasksBySelectedDay(tasks, selectedDay);
@@ -38,6 +39,7 @@ export function TaskList({
               task={task}
               weatherCondition={weatherCondition}
               onToggleComplete={() => onToggleTask(task.id)}
+              onEdit={() => onEditTask(task)}
               onDelete={() => onDeleteTask(task.id)}
             />
           ))
