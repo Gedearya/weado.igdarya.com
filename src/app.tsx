@@ -9,37 +9,17 @@ import {
   dailyForecast,
 } from "@/modules/weather/weather.data";
 import { DAY_FILTER } from "@/modules/task-list/task-list.constant";
-import { tasks as initialTasks } from "@/modules/task/task.data";
-import type { Task } from "@/modules/task/task.type";
+import { useTasks } from "@/modules/task/task.hooks";
 
 export function App() {
   const [selectedDay, setSelectedDay] = useState<string>(DAY_FILTER.ALL);
-  const [tasks, setTasks] = useState<Task[]>(initialTasks);
+  const { tasks, addTask, toggleTask, deleteTask } = useTasks();
 
   const selectedCondition =
     selectedDay === DAY_FILTER.ALL
       ? weatherData.condition
       : (dailyForecast.find((d) => d.date === selectedDay)?.condition ??
         weatherData.condition);
-
-  const handleToggleTask = (id: number) => {
-    setTasks((prev) =>
-      prev.map((task) =>
-        task.id === id ? { ...task, completed: !task.completed } : task,
-      ),
-    );
-  };
-
-  const handleDeleteTask = (id: number) => {
-    setTasks((prev) => prev.filter((task) => task.id !== id));
-  };
-
-  const handleAddTask = (newTask: Omit<Task, "id">) => {
-    setTasks((prev) => [
-      ...prev,
-      { ...newTask, id: Math.max(0, ...prev.map((t) => t.id)) + 1 },
-    ]);
-  };
 
   return (
     <div className="min-h-screen bg-[url('https://images.unsplash.com/photo-1517483000871-1dbf64a6e1c6?w=1920&q=80')] bg-cover bg-center bg-fixed">
@@ -58,7 +38,7 @@ export function App() {
               <TaskForm
                 daily={dailyForecast}
                 hourly={hourlyForecast}
-                onAddTask={handleAddTask}
+                onAddTask={addTask}
               />
             </div>
             <div className="md:col-span-3">
@@ -66,8 +46,8 @@ export function App() {
                 tasks={tasks}
                 condition={selectedCondition}
                 selectedDay={selectedDay}
-                onToggleTask={handleToggleTask}
-                onDeleteTask={handleDeleteTask}
+                onToggleTask={toggleTask}
+                onDeleteTask={deleteTask}
               />
             </div>
           </div>
