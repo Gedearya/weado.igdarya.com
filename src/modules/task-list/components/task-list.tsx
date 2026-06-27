@@ -23,7 +23,7 @@ export function TaskList({
           Task List
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-4 overflow-y-auto max-h-100 px-5">
+      <CardContent className="space-y-3 overflow-y-auto max-h-[480px] px-4 pb-4">
         {sortedTasks.length === 0 ? (
           <p className="text-sm text-muted-foreground text-center py-4">
             No tasks scheduled for this day

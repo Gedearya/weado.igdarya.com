@@ -1,24 +1,25 @@
 import { useState } from "react";
+import { format, parseISO } from "date-fns";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Calendar } from "@/components/ui/calendar";
 import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from "@/components/ui/select";
-import { Plus } from "lucide-react";
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Plus, Calendar as CalendarIcon, Clock } from "lucide-react";
 import { TASK_CATEGORY } from "@/modules/task/task.constant";
 import type {
   DailyForecast,
   HourlyForecast,
 } from "@/modules/weather/weather.type";
 import type { Task, TaskCategory } from "@/modules/task/task.type";
+import { cn } from "@/lib/utils";
 
 type TaskFormProps = {
   daily: DailyForecast[];
@@ -124,37 +125,62 @@ export function TaskForm({ daily, hourly, onAddTask }: TaskFormProps) {
           </RadioGroup>
         </div>
 
-        <div className="grid grid-cols-2 gap-3">
-          <div className="space-y-2">
-            <Label>Due Date</Label>
-            <Select value={dueDate} onValueChange={setDueDate}>
-              <SelectTrigger>
-                <SelectValue placeholder="No date" />
-              </SelectTrigger>
-              <SelectContent>
-                {daily.map((forecast) => (
-                  <SelectItem key={forecast.date} value={forecast.date}>
-                    {forecast.day}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
+        <div className="space-y-2">
+          <Label>Due Date</Label>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                data-empty={!dueDate}
+                className={cn(
+                  "w-full justify-start text-left font-normal",
+                  !dueDate && "text-muted-foreground",
+                )}
+              >
+                <CalendarIcon className="w-4 h-4" />
+                {dueDate
+                  ? format(parseISO(dueDate), "EEE, MMM d")
+                  : "Pick a date"}
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0" align="start">
+              <Calendar
+                mode="single"
+                selected={dueDate ? parseISO(dueDate) : undefined}
+                onSelect={(date) => {
+                  setDueDate(date ? format(date, "yyyy-MM-dd") : "");
+                }}
+                disabled={(date) => {
+                  const dateStr = format(date, "yyyy-MM-dd");
+                  return !daily.some((d) => d.date === dateStr);
+                }}
+                defaultMonth={daily[0] ? parseISO(daily[0].date) : undefined}
+              />
+            </PopoverContent>
+          </Popover>
+        </div>
 
-          <div className="space-y-2">
-            <Label>Time</Label>
-            <Select value={dueTime} onValueChange={setDueTime}>
-              <SelectTrigger>
-                <SelectValue placeholder="Any time" />
-              </SelectTrigger>
-              <SelectContent>
-                {availableSlots.map((slot) => (
-                  <SelectItem key={slot} value={slot}>
-                    {slot}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+        <div className="space-y-2">
+          <Label className="flex items-center gap-1.5">
+            <Clock className="w-3.5 h-3.5" />
+            Time
+          </Label>
+          <div className="grid grid-cols-4 gap-1.5">
+            {availableSlots.map((slot) => (
+              <button
+                key={slot}
+                type="button"
+                onClick={() => setDueTime(dueTime === slot ? "" : slot)}
+                className={cn(
+                  "rounded-md border px-2 py-1.5 text-xs font-medium transition-colors",
+                  dueTime === slot
+                    ? "bg-primary text-primary-foreground border-primary"
+                    : "bg-background text-foreground border-input hover:bg-accent hover:text-accent-foreground",
+                )}
+              >
+                {slot}
+              </button>
+            ))}
           </div>
         </div>
 

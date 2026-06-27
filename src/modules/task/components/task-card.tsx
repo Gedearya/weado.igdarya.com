@@ -60,12 +60,12 @@ export function TaskCard({
 }: TaskCardProps) {
   const recommended = isRecommended(task, condition);
   const cardClassName = recommended
-    ? "bg-gradient-to-r from-green-50 to-emerald-50 border-green-200 shadow-md shadow-green-100/50"
-    : "bg-white shadow-sm hover:shadow-md";
+    ? "bg-gradient-to-r from-green-50 to-emerald-50 border-green-200"
+    : "bg-white border-border";
 
   return (
     <Card
-      className={`${cardClassName} transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg`}
+      className={`${cardClassName} shadow-sm transition-shadow duration-200 hover:shadow-md`}
     >
       <CardHeader className="flex flex-row items-center justify-between p-4 pb-0">
         <div className="flex items-center gap-3">
