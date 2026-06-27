@@ -17,11 +17,13 @@ export function TaskList({
   const sortedTasks = sortTasks(filteredTasks, condition);
 
   return (
-    <Card className="h-full flex flex-col">
+    <Card className="h-full flex flex-col shadow-lg border-0 bg-gradient-to-b from-white to-slate-50/50">
       <CardHeader className="pb-3">
-        <CardTitle className="text-lg">Task List</CardTitle>
+        <CardTitle className="text-lg font-bold text-slate-800">
+          Task List
+        </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-3 overflow-y-auto max-h-100">
+      <CardContent className="space-y-4 overflow-y-auto max-h-100 px-5">
         {sortedTasks.length === 0 ? (
           <p className="text-sm text-muted-foreground text-center py-4">
             No tasks scheduled for this day

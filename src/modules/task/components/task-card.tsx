@@ -59,17 +59,24 @@ export function TaskCard({
   onDelete,
 }: TaskCardProps) {
   const recommended = isRecommended(task, condition);
-  const cardClassName = recommended ? "bg-green-50 border-green-200" : "";
+  const cardClassName = recommended
+    ? "bg-gradient-to-r from-green-50 to-emerald-50 border-green-200 shadow-md shadow-green-100/50"
+    : "bg-white shadow-sm hover:shadow-md";
 
   return (
-    <Card className={cardClassName}>
+    <Card
+      className={`${cardClassName} transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg`}
+    >
       <CardHeader className="flex flex-row items-center justify-between p-4 pb-0">
         <div className="flex items-center gap-3">
-          <button onClick={onToggle} className="shrink-0">
+          <button
+            onClick={onToggle}
+            className="shrink-0 transition-transform duration-150 hover:scale-110"
+          >
             {task.completed ? (
               <CheckCircle className="w-5 h-5 text-green-500" />
             ) : (
-              <Circle className="w-5 h-5 text-muted-foreground" />
+              <Circle className="w-5 h-5 text-muted-foreground hover:text-green-400 transition-colors" />
             )}
           </button>
           <div>
@@ -89,7 +96,7 @@ export function TaskCard({
                 </Badge>
               )}
             </div>
-            <CardDescription className="text-xs">
+            <CardDescription className="text-xs mt-0.5">
               {task.description}
             </CardDescription>
           </div>
@@ -99,14 +106,14 @@ export function TaskCard({
           <Button
             variant="ghost"
             size="icon"
-            className="h-7 w-7 rounded-full hover:bg-blue-50"
+            className="h-7 w-7 rounded-full hover:bg-blue-100 transition-colors duration-150"
           >
             <Pencil className="w-3.5 h-3.5 text-blue-500" />
           </Button>
           <Button
             variant="ghost"
             size="icon"
-            className="h-7 w-7 rounded-full hover:bg-red-50"
+            className="h-7 w-7 rounded-full hover:bg-red-100 transition-colors duration-150"
             onClick={onDelete}
           >
             <Trash2 className="w-3.5 h-3.5 text-red-500" />
