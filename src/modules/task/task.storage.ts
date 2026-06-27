@@ -1,10 +1,10 @@
 import type { Task } from "./task.type";
-import { tasks as defaultTasks } from "./task.data";
+import { defaultTasks } from "./task.data";
 
-const STORAGE_KEY = "weado-tasks";
+const TASKS_STORAGE_KEY = "weado-tasks";
 
-export function loadTasks(): Task[] {
-  const stored = localStorage.getItem(STORAGE_KEY);
+export function loadTasksFromStorage(): Task[] {
+  const stored = localStorage.getItem(TASKS_STORAGE_KEY);
   if (!stored) return defaultTasks;
 
   try {
@@ -14,6 +14,6 @@ export function loadTasks(): Task[] {
   }
 }
 
-export function saveTasks(tasks: Task[]): void {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+export function saveTasksToStorage(tasks: Task[]): void {
+  localStorage.setItem(TASKS_STORAGE_KEY, JSON.stringify(tasks));
 }

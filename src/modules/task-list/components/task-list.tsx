@@ -1,6 +1,6 @@
 import type { TaskListProps } from "@/modules/task-list/task-list.type";
 import {
-  sortTasks,
+  sortTasksByWeatherRecommendation,
   filterTasksByDay,
 } from "@/modules/task-list/task-list.data";
 import { TaskCard } from "@/modules/task/components/task-card";
@@ -8,22 +8,25 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
 export function TaskList({
   tasks,
-  condition,
+  weatherCondition,
   selectedDay,
   onToggleTask,
   onDeleteTask,
 }: TaskListProps) {
   const filteredTasks = filterTasksByDay(tasks, selectedDay);
-  const sortedTasks = sortTasks(filteredTasks, condition);
+  const sortedTasks = sortTasksByWeatherRecommendation(
+    filteredTasks,
+    weatherCondition,
+  );
 
   return (
-    <Card className="h-full flex flex-col shadow-lg border-0 bg-white/95">
+    <Card className="h-full flex flex-col bg-white/95 backdrop-blur-sm max-h-[540px]">
       <CardHeader className="pb-3">
         <CardTitle className="text-lg font-bold text-slate-800">
           Task List
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-3 overflow-y-auto max-h-[480px] px-4 pb-4">
+      <CardContent className="space-y-3 overflow-y-auto flex-1 px-4 pb-4">
         {sortedTasks.length === 0 ? (
           <p className="text-sm text-muted-foreground text-center py-4">
             No tasks scheduled for this day
@@ -33,8 +36,8 @@ export function TaskList({
             <TaskCard
               key={task.id}
               task={task}
-              condition={condition}
-              onToggle={() => onToggleTask(task.id)}
+              weatherCondition={weatherCondition}
+              onToggleComplete={() => onToggleTask(task.id)}
               onDelete={() => onDeleteTask(task.id)}
             />
           ))

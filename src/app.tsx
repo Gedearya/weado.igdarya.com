@@ -13,40 +13,40 @@ import { useTasks } from "@/modules/task/task.hooks";
 
 export function App() {
   const [selectedDay, setSelectedDay] = useState<string>(DAY_FILTER.ALL);
-  const { tasks, addTask, toggleTask, deleteTask } = useTasks();
+  const { tasks, addTask, toggleTaskComplete, deleteTask } = useTasks();
 
-  const selectedCondition =
+  const currentWeatherCondition =
     selectedDay === DAY_FILTER.ALL
       ? weatherData.condition
-      : (dailyForecast.find((d) => d.date === selectedDay)?.condition ??
-        weatherData.condition);
+      : (dailyForecast.find((forecast) => forecast.date === selectedDay)
+          ?.condition ?? weatherData.condition);
 
   return (
     <div className="min-h-screen bg-[url('https://images.unsplash.com/photo-1517483000871-1dbf64a6e1c6?w=1920&q=80')] bg-cover bg-center bg-fixed">
       <div className="min-h-screen bg-black/30 backdrop-blur-[1px] py-8 px-4">
         <div className="max-w-5xl w-full mx-auto space-y-5">
-          <Header condition={weatherData.condition} />
+          <Header weatherCondition={weatherData.condition} />
           <WeatherCard
             weather={weatherData}
-            hourly={hourlyForecast}
-            daily={dailyForecast}
+            hourlyForecast={hourlyForecast}
+            dailyForecast={dailyForecast}
             selectedDay={selectedDay}
             onSelectDay={setSelectedDay}
           />
           <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
             <div className="md:col-span-2">
               <TaskForm
-                daily={dailyForecast}
-                hourly={hourlyForecast}
+                dailyForecast={dailyForecast}
+                hourlyForecast={hourlyForecast}
                 onAddTask={addTask}
               />
             </div>
             <div className="md:col-span-3">
               <TaskList
                 tasks={tasks}
-                condition={selectedCondition}
+                weatherCondition={currentWeatherCondition}
                 selectedDay={selectedDay}
-                onToggleTask={toggleTask}
+                onToggleTask={toggleTaskComplete}
                 onDeleteTask={deleteTask}
               />
             </div>

@@ -1,7 +1,7 @@
 import type { Task } from "./task.type";
 import { TASK_CATEGORY } from "./task.constant";
 
-export const tasks: Task[] = [
+export const defaultTasks: Task[] = [
   {
     id: 1,
     title: "Jogging",

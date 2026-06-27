@@ -22,12 +22,16 @@ import type { Task, TaskCategory } from "@/modules/task/task.type";
 import { cn } from "@/lib/utils";
 
 type TaskFormProps = {
-  daily: DailyForecast[];
-  hourly: HourlyForecast[];
+  dailyForecast: DailyForecast[];
+  hourlyForecast: HourlyForecast[];
   onAddTask: (task: Omit<Task, "id">) => void;
 };
 
-export function TaskForm({ daily, hourly, onAddTask }: TaskFormProps) {
+export function TaskForm({
+  dailyForecast,
+  hourlyForecast,
+  onAddTask,
+}: TaskFormProps) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState<TaskCategory>(TASK_CATEGORY.INDOOR);
@@ -45,12 +49,14 @@ export function TaskForm({ daily, hourly, onAddTask }: TaskFormProps) {
     "21:00",
   ];
 
-  const forecastSlots = dueDate
-    ? hourly.filter((h) => h.datetime.startsWith(dueDate)).map((h) => h.time)
+  const forecastTimeSlots = dueDate
+    ? hourlyForecast
+        .filter((hour) => hour.datetime.startsWith(dueDate))
+        .map((hour) => hour.time)
     : [];
 
-  const availableSlots =
-    forecastSlots.length > 0 ? forecastSlots : DEFAULT_SLOTS;
+  const availableTimeSlots =
+    forecastTimeSlots.length > 0 ? forecastTimeSlots : DEFAULT_SLOTS;
 
   const handleSubmit = () => {
     if (!title.trim()) return;
@@ -152,9 +158,13 @@ export function TaskForm({ daily, hourly, onAddTask }: TaskFormProps) {
                 }}
                 disabled={(date) => {
                   const dateStr = format(date, "yyyy-MM-dd");
-                  return !daily.some((d) => d.date === dateStr);
+                  return !dailyForecast.some(
+                    (forecast) => forecast.date === dateStr,
+                  );
                 }}
-                defaultMonth={daily[0] ? parseISO(daily[0].date) : undefined}
+                defaultMonth={
+                  dailyForecast[0] ? parseISO(dailyForecast[0].date) : undefined
+                }
               />
             </PopoverContent>
           </Popover>
@@ -166,7 +176,7 @@ export function TaskForm({ daily, hourly, onAddTask }: TaskFormProps) {
             Time
           </Label>
           <div className="grid grid-cols-4 gap-1.5">
-            {availableSlots.map((slot) => (
+            {availableTimeSlots.map((slot) => (
               <button
                 key={slot}
                 type="button"

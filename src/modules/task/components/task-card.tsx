@@ -1,7 +1,7 @@
 import type { Task, TaskCategory } from "@/modules/task/task.type";
 import { TASK_CATEGORY } from "@/modules/task/task.constant";
 import type { WeatherCondition } from "@/modules/weather/weather.type";
-import { isRecommended } from "@/modules/task-list/task-list.data";
+import { isTaskRecommendedForWeather } from "@/modules/task-list/task-list.data";
 import { formatDueDate } from "@/lib/format";
 import {
   Card,
@@ -23,25 +23,25 @@ import {
 
 type TaskCardProps = {
   task: Task;
-  condition: WeatherCondition;
-  onToggle: () => void;
+  weatherCondition: WeatherCondition;
+  onToggleComplete: () => void;
   onDelete: () => void;
 };
 
 function CategoryBadge({ category }: { category: TaskCategory }) {
-  const className =
+  const badgeClassName =
     category === TASK_CATEGORY.INDOOR
       ? "bg-blue-100 text-blue-700 border-blue-300"
       : "bg-green-100 text-green-700 border-green-300";
 
   return (
-    <Badge variant="outline" className={className}>
+    <Badge variant="outline" className={badgeClassName}>
       {category === TASK_CATEGORY.INDOOR ? "Indoor" : "Outdoor"}
     </Badge>
   );
 }
 
-function RecommendedBadge() {
+function WeatherRecommendedBadge() {
   return (
     <Badge
       variant="outline"
@@ -54,12 +54,13 @@ function RecommendedBadge() {
 
 export function TaskCard({
   task,
-  condition,
-  onToggle,
+  weatherCondition,
+  onToggleComplete,
   onDelete,
 }: TaskCardProps) {
-  const recommended = isRecommended(task, condition);
-  const cardClassName = recommended
+  const isRecommended = isTaskRecommendedForWeather(task, weatherCondition);
+
+  const cardClassName = isRecommended
     ? "bg-gradient-to-r from-green-50 to-emerald-50 border-green-200"
     : "bg-white border-border";
 
@@ -70,7 +71,7 @@ export function TaskCard({
       <CardHeader className="flex flex-row items-center justify-between p-4 pb-0">
         <div className="flex items-center gap-3">
           <button
-            onClick={onToggle}
+            onClick={onToggleComplete}
             className="shrink-0 transition-transform duration-150 hover:scale-110"
           >
             {task.completed ? (
@@ -123,7 +124,7 @@ export function TaskCard({
 
       <CardContent className="flex items-center gap-2 p-4 pt-2">
         <CategoryBadge category={task.category} />
-        {recommended && <RecommendedBadge />}
+        {isRecommended && <WeatherRecommendedBadge />}
       </CardContent>
     </Card>
   );

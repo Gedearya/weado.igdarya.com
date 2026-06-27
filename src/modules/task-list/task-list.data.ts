@@ -3,58 +3,103 @@ import { TASK_CATEGORY, INDOOR_CONDITIONS } from "@/modules/task/task.constant";
 import { DAY_FILTER } from "@/modules/task-list/task-list.constant";
 import type { WeatherCondition } from "@/modules/weather/weather.type";
 
-export function getRecommendedCategory(
-  condition: WeatherCondition,
+/**
+ * Menentukan kategori task yang cocok berdasarkan kondisi cuaca.
+ * Cuaca buruk (hujan, badai, kabut) → Indoor, cuaca baik → Outdoor.
+ */
+export function getCategoryForWeatherCondition(
+  weatherCondition: WeatherCondition,
 ): TaskCategory {
-  return INDOOR_CONDITIONS.includes(condition)
+  return INDOOR_CONDITIONS.includes(weatherCondition)
     ? TASK_CATEGORY.INDOOR
     : TASK_CATEGORY.OUTDOOR;
 }
 
-export function isMatchWeather(
+/**
+ * Mengecek apakah kategori task cocok dengan kondisi cuaca saat ini.
+ */
+export function isTaskSuitableForWeather(
   task: Task,
-  condition: WeatherCondition,
+  weatherCondition: WeatherCondition,
 ): boolean {
-  return task.category === getRecommendedCategory(condition);
+  return task.category === getCategoryForWeatherCondition(weatherCondition);
 }
 
-export function isRecommended(
+/**
+ * Mengecek apakah task layak direkomendasikan:
+ * belum selesai DAN kategorinya cocok dengan cuaca.
+ */
+export function isTaskRecommendedForWeather(
   task: Task,
-  condition: WeatherCondition,
+  weatherCondition: WeatherCondition,
 ): boolean {
-  return !task.completed && isMatchWeather(task, condition);
+  return !task.completed && isTaskSuitableForWeather(task, weatherCondition);
 }
 
-export function filterTasksByDay(tasks: Task[], day: string): Task[] {
-  if (day === DAY_FILTER.ALL) {
+/**
+ * Filter task berdasarkan hari yang dipilih.
+ * "All" menampilkan semua, selainnya filter by dueDate.
+ */
+export function filterTasksByDay(tasks: Task[], selectedDay: string): Task[] {
+  if (selectedDay === DAY_FILTER.ALL) {
     return tasks;
   }
-  return tasks.filter((task) => task.dueDate === day || !task.dueDate);
+  return tasks.filter((task) => task.dueDate === selectedDay || !task.dueDate);
 }
 
-function sortByTime(a: Task, b: Task): number {
-  const timeA = a.dueTime ?? "99:99";
-  const timeB = b.dueTime ?? "99:99";
+/**
+ * Membandingkan dua task berdasarkan dueTime untuk sorting.
+ */
+function compareTasksByDueTime(taskA: Task, taskB: Task): number {
+  const timeA = taskA.dueTime ?? "99:99";
+  const timeB = taskB.dueTime ?? "99:99";
   return timeA.localeCompare(timeB);
 }
 
-export function sortTasks(tasks: Task[], condition: WeatherCondition): Task[] {
-  const recommended = tasks
-    .filter((task) => !task.completed && isMatchWeather(task, condition))
-    .sort(sortByTime);
-  const notRecommended = tasks
-    .filter((task) => !task.completed && !isMatchWeather(task, condition))
-    .sort(sortByTime);
-  const completedMatch = tasks
-    .filter((task) => task.completed && isMatchWeather(task, condition))
-    .sort(sortByTime);
-  const completedNoMatch = tasks
-    .filter((task) => task.completed && !isMatchWeather(task, condition))
-    .sort(sortByTime);
+/**
+ * Mengurutkan task berdasarkan prioritas rekomendasi cuaca:
+ * 1. Aktif + cocok cuaca (recommended)
+ * 2. Aktif + tidak cocok cuaca
+ * 3. Selesai + cocok cuaca
+ * 4. Selesai + tidak cocok cuaca
+ * Dalam setiap grup, diurutkan berdasarkan dueTime.
+ */
+export function sortTasksByWeatherRecommendation(
+  tasks: Task[],
+  weatherCondition: WeatherCondition,
+): Task[] {
+  const recommendedTasks = tasks
+    .filter(
+      (task) =>
+        !task.completed && isTaskSuitableForWeather(task, weatherCondition),
+    )
+    .sort(compareTasksByDueTime);
+
+  const activeTasks = tasks
+    .filter(
+      (task) =>
+        !task.completed && !isTaskSuitableForWeather(task, weatherCondition),
+    )
+    .sort(compareTasksByDueTime);
+
+  const completedSuitableTasks = tasks
+    .filter(
+      (task) =>
+        task.completed && isTaskSuitableForWeather(task, weatherCondition),
+    )
+    .sort(compareTasksByDueTime);
+
+  const completedOtherTasks = tasks
+    .filter(
+      (task) =>
+        task.completed && !isTaskSuitableForWeather(task, weatherCondition),
+    )
+    .sort(compareTasksByDueTime);
+
   return [
-    ...recommended,
-    ...notRecommended,
-    ...completedMatch,
-    ...completedNoMatch,
+    ...recommendedTasks,
+    ...activeTasks,
+    ...completedSuitableTasks,
+    ...completedOtherTasks,
   ];
 }

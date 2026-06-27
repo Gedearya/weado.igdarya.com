@@ -13,13 +13,13 @@ import { MapPin, Search, Droplets, Wind, Eye, Gauge } from "lucide-react";
 
 type WeatherCardProps = {
   weather: WeatherData;
-  hourly: HourlyForecast[];
-  daily: DailyForecast[];
+  hourlyForecast: HourlyForecast[];
+  dailyForecast: DailyForecast[];
   selectedDay: string;
   onSelectDay: (day: string) => void;
 };
 
-function WeatherDetail({
+function WeatherDetailItem({
   icon,
   label,
   value,
@@ -41,22 +41,24 @@ function WeatherDetail({
 
 export function WeatherCard({
   weather,
-  hourly,
-  daily,
+  hourlyForecast,
+  dailyForecast,
   selectedDay,
   onSelectDay,
 }: WeatherCardProps) {
-  const selectedForecast = daily.find((d) => d.date === selectedDay);
-  const condition = selectedForecast?.condition ?? weather.condition;
-  const displayTemp = selectedForecast?.temperature ?? weather.temperature;
-  const displayDesc = selectedForecast
-    ? selectedForecast.condition.charAt(0) +
-      selectedForecast.condition.slice(1).toLowerCase()
+  const selectedDayForecast = dailyForecast.find(
+    (forecast) => forecast.date === selectedDay,
+  );
+  const displayCondition = selectedDayForecast?.condition ?? weather.condition;
+  const displayTemperature =
+    selectedDayForecast?.temperature ?? weather.temperature;
+  const displayDescription = selectedDayForecast
+    ? selectedDayForecast.condition.charAt(0) +
+      selectedDayForecast.condition.slice(1).toLowerCase()
     : weather.description;
-
-  const bgImage = WEATHER_BACKGROUND[condition] || WEATHER_BACKGROUND.CLEAR;
-
-  const chartData = hourly.map((hour) => ({
+  const backgroundImage =
+    WEATHER_BACKGROUND[displayCondition] || WEATHER_BACKGROUND.CLEAR;
+  const temperatureChartData = hourlyForecast.map((hour) => ({
     label: hour.time,
     value: hour.temperature,
     rainChance: hour.rainChance,
@@ -90,27 +92,19 @@ export function WeatherCard({
       <div className="flex gap-1.5 overflow-x-auto">
         <Badge
           variant={selectedDay === DAY_FILTER.ALL ? "default" : "outline"}
-          className={`shrink-0 px-3 py-1 cursor-pointer text-xs ${
-            selectedDay === DAY_FILTER.ALL
-              ? "bg-orange-500 hover:bg-orange-600 text-white border-none"
-              : "bg-white/20 text-white border-white/30"
-          }`}
+          className={`shrink-0 px-3 py-1 cursor-pointer text-xs ${selectedDay === DAY_FILTER.ALL ? "bg-orange-500 hover:bg-orange-600 text-white border-none" : "bg-white/20 text-white border-white/30"}`}
           onClick={() => onSelectDay(DAY_FILTER.ALL)}
         >
           {DAY_FILTER.ALL}
         </Badge>
-        {daily.map((day) => (
+        {dailyForecast.map((forecast) => (
           <Badge
-            key={day.date}
-            variant={selectedDay === day.date ? "default" : "outline"}
-            className={`shrink-0 px-3 py-1 cursor-pointer text-xs ${
-              selectedDay === day.date
-                ? "bg-orange-500 hover:bg-orange-600 text-white border-none"
-                : "bg-white/20 text-white border-white/30"
-            }`}
-            onClick={() => onSelectDay(day.date)}
+            key={forecast.date}
+            variant={selectedDay === forecast.date ? "default" : "outline"}
+            className={`shrink-0 px-3 py-1 cursor-pointer text-xs ${selectedDay === forecast.date ? "bg-orange-500 hover:bg-orange-600 text-white border-none" : "bg-white/20 text-white border-white/30"}`}
+            onClick={() => onSelectDay(forecast.date)}
           >
-            {day.day} · {day.temperature}° {day.icon}
+            {forecast.day} · {forecast.temperature}° {forecast.icon}
           </Badge>
         ))}
       </div>
@@ -120,7 +114,7 @@ export function WeatherCard({
           <CardContent className="p-0">
             <div
               className="relative h-70 bg-cover bg-center rounded-t-lg"
-              style={{ backgroundImage: `url('${bgImage}')` }}
+              style={{ backgroundImage: `url('${backgroundImage}')` }}
             >
               <div className="relative h-full flex flex-col justify-between p-5">
                 <div className="flex justify-end">
@@ -128,11 +122,11 @@ export function WeatherCard({
                 </div>
                 <div className="flex items-end justify-between">
                   <p className="text-6xl font-bold text-white drop-shadow-lg">
-                    {displayTemp}°
+                    {displayTemperature}°
                   </p>
                   <div className="text-right">
                     <p className="text-lg font-medium text-white drop-shadow-md">
-                      {displayDesc}
+                      {displayDescription}
                     </p>
                     <p className="text-sm text-white/70 drop-shadow-sm">
                       Feels like {weather.feelsLike}°
@@ -141,24 +135,23 @@ export function WeatherCard({
                 </div>
               </div>
             </div>
-
             <div className="grid grid-cols-2 gap-2 p-2">
-              <WeatherDetail
+              <WeatherDetailItem
                 icon={<Wind className="w-3.5 h-3.5" />}
                 label="Wind"
                 value={`${weather.windSpeed} m/s ${weather.windDirection}`}
               />
-              <WeatherDetail
+              <WeatherDetailItem
                 icon={<Droplets className="w-3.5 h-3.5" />}
                 label="Humidity"
                 value={`${weather.humidity}%`}
               />
-              <WeatherDetail
+              <WeatherDetailItem
                 icon={<Eye className="w-3.5 h-3.5" />}
                 label="Visibility"
                 value={`${weather.visibility} km`}
               />
-              <WeatherDetail
+              <WeatherDetailItem
                 icon={<Gauge className="w-3.5 h-3.5" />}
                 label="Pressure"
                 value={`${weather.pressure} hPa`}
@@ -174,9 +167,13 @@ export function WeatherCard({
             </CardTitle>
           </CardHeader>
           <CardContent className="flex flex-col justify-end px-5 pb-4 pt-1 gap-2">
-            <SimpleLineChart data={chartData} color="#f97316" height={150} />
+            <SimpleLineChart
+              data={temperatureChartData}
+              color="#f97316"
+              height={150}
+            />
             <div className="grid grid-cols-4 md:grid-cols-8 gap-1.5">
-              {hourly.map((hour) => (
+              {hourlyForecast.map((hour) => (
                 <div
                   key={hour.datetime}
                   className="flex flex-col items-center gap-0.5 bg-amber-50 rounded-lg py-2 px-1"
