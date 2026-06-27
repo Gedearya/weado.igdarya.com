@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
 import type { Task } from "./task.type";
-import { loadTasksFromStorage, saveTasksToStorage } from "./task.storage";
+import {
+  loadTasksFromLocalStorage,
+  saveTasksToLocalStorage,
+} from "./task.storage";
 
 export function useTasks() {
-  const [tasks, setTasks] = useState<Task[]>(() => loadTasksFromStorage());
+  const [tasks, setTasks] = useState<Task[]>(() => loadTasksFromLocalStorage());
 
   useEffect(() => {
-    saveTasksToStorage(tasks);
+    saveTasksToLocalStorage(tasks);
   }, [tasks]);
 
   const addTask = (newTask: Omit<Task, "id">) => {
@@ -19,22 +22,27 @@ export function useTasks() {
     ]);
   };
 
-  const updateTask = (id: number, updates: Partial<Omit<Task, "id">>) => {
+  const updateTask = (
+    taskId: number,
+    fieldsToUpdate: Partial<Omit<Task, "id">>,
+  ) => {
     setTasks((currentTasks) =>
       currentTasks.map((task) =>
-        task.id === id ? { ...task, ...updates } : task,
+        task.id === taskId ? { ...task, ...fieldsToUpdate } : task,
       ),
     );
   };
 
-  const deleteTask = (id: number) => {
-    setTasks((currentTasks) => currentTasks.filter((task) => task.id !== id));
+  const deleteTask = (taskId: number) => {
+    setTasks((currentTasks) =>
+      currentTasks.filter((task) => task.id !== taskId),
+    );
   };
 
-  const toggleTaskComplete = (id: number) => {
+  const toggleTaskComplete = (taskId: number) => {
     setTasks((currentTasks) =>
       currentTasks.map((task) =>
-        task.id === id ? { ...task, completed: !task.completed } : task,
+        task.id === taskId ? { ...task, completed: !task.completed } : task,
       ),
     );
   };

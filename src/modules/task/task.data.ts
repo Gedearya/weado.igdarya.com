@@ -1,5 +1,10 @@
+import { format, addDays } from "date-fns";
 import type { Task } from "./task.type";
 import { TASK_CATEGORY } from "./task.constant";
+
+function getDateStringFromToday(daysFromToday: number): string {
+  return format(addDays(new Date(), daysFromToday), "yyyy-MM-dd");
+}
 
 export const defaultTasks: Task[] = [
   {
@@ -8,7 +13,7 @@ export const defaultTasks: Task[] = [
     description: "Morning jog around the park for 30 minutes",
     category: TASK_CATEGORY.OUTDOOR,
     completed: false,
-    dueDate: "2026-06-27",
+    dueDate: getDateStringFromToday(0),
     dueTime: "06:00",
   },
   {
@@ -17,7 +22,7 @@ export const defaultTasks: Task[] = [
     description: "Read a chapter of a programming book",
     category: TASK_CATEGORY.INDOOR,
     completed: false,
-    dueDate: "2026-06-27",
+    dueDate: getDateStringFromToday(0),
     dueTime: "21:00",
   },
   {
@@ -26,7 +31,7 @@ export const defaultTasks: Task[] = [
     description: "Water the plants and trim the bushes",
     category: TASK_CATEGORY.OUTDOOR,
     completed: true,
-    dueDate: "2026-06-27",
+    dueDate: getDateStringFromToday(0),
     dueTime: "15:00",
   },
   {
@@ -35,7 +40,7 @@ export const defaultTasks: Task[] = [
     description: "Prepare lunch for the family",
     category: TASK_CATEGORY.INDOOR,
     completed: false,
-    dueDate: "2026-06-28",
+    dueDate: getDateStringFromToday(1),
     dueTime: "12:00",
   },
   {
@@ -44,7 +49,7 @@ export const defaultTasks: Task[] = [
     description: "Ride a bike to the nearby lake",
     category: TASK_CATEGORY.OUTDOOR,
     completed: false,
-    dueDate: "2026-06-28",
+    dueDate: getDateStringFromToday(1),
     dueTime: "06:00",
   },
   {
@@ -53,7 +58,7 @@ export const defaultTasks: Task[] = [
     description: "Indoor yoga session for flexibility",
     category: TASK_CATEGORY.INDOOR,
     completed: false,
-    dueDate: "2026-06-29",
+    dueDate: getDateStringFromToday(2),
     dueTime: "18:00",
   },
   {
@@ -62,7 +67,7 @@ export const defaultTasks: Task[] = [
     description: "Take photos at the botanical garden",
     category: TASK_CATEGORY.OUTDOOR,
     completed: false,
-    dueDate: "2026-07-01",
+    dueDate: getDateStringFromToday(4),
     dueTime: "09:00",
   },
   {
@@ -71,7 +76,7 @@ export const defaultTasks: Task[] = [
     description: "Organize and sweep the garage",
     category: TASK_CATEGORY.INDOOR,
     completed: false,
-    dueDate: "2026-06-30",
+    dueDate: getDateStringFromToday(3),
     dueTime: "09:00",
   },
 ];

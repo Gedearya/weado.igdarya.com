@@ -1,7 +1,9 @@
+import { format, addDays } from "date-fns";
 import type {
   WeatherData,
   HourlyForecast,
   DailyForecast,
+  WeatherCondition,
 } from "./weather.type";
 import { WEATHER_CONDITION } from "./weather.constant";
 
@@ -18,66 +20,107 @@ export const weatherData: WeatherData = {
   visibility: 10,
 };
 
-export const hourlyForecast: HourlyForecast[] = [
+const todayDate = new Date();
+const todayDateString = format(todayDate, "yyyy-MM-dd");
+
+function formatDateToString(date: Date): string {
+  return format(date, "yyyy-MM-dd");
+}
+
+function getDayLabelByIndex(date: Date, dayIndex: number): string {
+  if (dayIndex === 0) return "Today";
+  return format(date, "EEE d");
+}
+
+type DailyWeatherSimulation = {
+  temperature: number;
+  icon: string;
+  condition: WeatherCondition;
+};
+
+const fiveDayWeatherSimulations: DailyWeatherSimulation[] = [
+  { temperature: 31, icon: "⛅", condition: WEATHER_CONDITION.CLOUDS },
+  { temperature: 32, icon: "☀️", condition: WEATHER_CONDITION.CLEAR },
+  { temperature: 29, icon: "🌧️", condition: WEATHER_CONDITION.RAIN },
+  { temperature: 28, icon: "🌧️", condition: WEATHER_CONDITION.RAIN },
+  { temperature: 30, icon: "⛅", condition: WEATHER_CONDITION.CLOUDS },
+];
+
+export const dailyForecast: DailyForecast[] = fiveDayWeatherSimulations.map(
+  (simulation, dayIndex) => {
+    const forecastDate = addDays(todayDate, dayIndex);
+    return {
+      date: formatDateToString(forecastDate),
+      day: getDayLabelByIndex(forecastDate, dayIndex),
+      temperature: simulation.temperature,
+      icon: simulation.icon,
+      condition: simulation.condition,
+    };
+  },
+);
+
+type HourlyWeatherSimulation = {
+  temperature: number;
+  rainChance: number;
+  icon: string;
+  condition: WeatherCondition;
+};
+
+const hourlyTimeSlots = [
+  "00:00",
+  "03:00",
+  "06:00",
+  "09:00",
+  "12:00",
+  "15:00",
+  "18:00",
+  "21:00",
+];
+
+const todayHourlyWeatherSimulations: HourlyWeatherSimulation[] = [
   {
-    datetime: "2026-06-27 00:00",
-    time: "00:00",
     temperature: 26,
     rainChance: 0,
     icon: "🌙",
     condition: WEATHER_CONDITION.CLEAR,
   },
   {
-    datetime: "2026-06-27 03:00",
-    time: "03:00",
     temperature: 25,
     rainChance: 0,
     icon: "🌙",
     condition: WEATHER_CONDITION.CLEAR,
   },
   {
-    datetime: "2026-06-27 06:00",
-    time: "06:00",
     temperature: 27,
     rainChance: 0,
     icon: "⛅",
     condition: WEATHER_CONDITION.CLOUDS,
   },
   {
-    datetime: "2026-06-27 09:00",
-    time: "09:00",
     temperature: 30,
     rainChance: 0,
     icon: "⛅",
     condition: WEATHER_CONDITION.CLOUDS,
   },
   {
-    datetime: "2026-06-27 12:00",
-    time: "12:00",
     temperature: 31,
     rainChance: 10,
     icon: "⛅",
     condition: WEATHER_CONDITION.CLOUDS,
   },
   {
-    datetime: "2026-06-27 15:00",
-    time: "15:00",
     temperature: 30,
     rainChance: 20,
     icon: "⛅",
     condition: WEATHER_CONDITION.CLOUDS,
   },
   {
-    datetime: "2026-06-27 18:00",
-    time: "18:00",
     temperature: 28,
     rainChance: 10,
     icon: "⛅",
     condition: WEATHER_CONDITION.CLOUDS,
   },
   {
-    datetime: "2026-06-27 21:00",
-    time: "21:00",
     temperature: 27,
     rainChance: 0,
     icon: "🌙",
@@ -85,40 +128,12 @@ export const hourlyForecast: HourlyForecast[] = [
   },
 ];
 
-export const dailyForecast: DailyForecast[] = [
-  {
-    date: "2026-06-27",
-    day: "Today",
-    temperature: 31,
-    icon: "⛅",
-    condition: WEATHER_CONDITION.CLOUDS,
-  },
-  {
-    date: "2026-06-28",
-    day: "Sun 28",
-    temperature: 32,
-    icon: "☀️",
-    condition: WEATHER_CONDITION.CLEAR,
-  },
-  {
-    date: "2026-06-29",
-    day: "Mon 29",
-    temperature: 29,
-    icon: "🌧️",
-    condition: WEATHER_CONDITION.RAIN,
-  },
-  {
-    date: "2026-06-30",
-    day: "Tue 30",
-    temperature: 28,
-    icon: "🌧️",
-    condition: WEATHER_CONDITION.RAIN,
-  },
-  {
-    date: "2026-07-01",
-    day: "Wed 1",
-    temperature: 30,
-    icon: "⛅",
-    condition: WEATHER_CONDITION.CLOUDS,
-  },
-];
+export const hourlyForecast: HourlyForecast[] =
+  todayHourlyWeatherSimulations.map((simulation, index) => ({
+    datetime: `${todayDateString} ${hourlyTimeSlots[index]}`,
+    time: hourlyTimeSlots[index],
+    temperature: simulation.temperature,
+    rainChance: simulation.rainChance,
+    icon: simulation.icon,
+    condition: simulation.condition,
+  }));

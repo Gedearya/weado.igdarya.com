@@ -1,7 +1,7 @@
 import type { TaskListProps } from "@/modules/task-list/task-list.type";
 import {
   sortTasksByWeatherRecommendation,
-  filterTasksByDay,
+  filterTasksBySelectedDay,
 } from "@/modules/task-list/task-list.data";
 import { TaskCard } from "@/modules/task/components/task-card";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
@@ -13,7 +13,7 @@ export function TaskList({
   onToggleTask,
   onDeleteTask,
 }: TaskListProps) {
-  const filteredTasks = filterTasksByDay(tasks, selectedDay);
+  const filteredTasks = filterTasksBySelectedDay(tasks, selectedDay);
   const sortedTasks = sortTasksByWeatherRecommendation(
     filteredTasks,
     weatherCondition,
