@@ -72,7 +72,7 @@ export function TaskForm({ daily, hourly, onAddTask }: TaskFormProps) {
   };
 
   return (
-    <Card>
+    <Card className="bg-white/95 backdrop-blur-sm">
       <CardHeader>
         <CardTitle className="text-lg">Add New Task</CardTitle>
       </CardHeader>

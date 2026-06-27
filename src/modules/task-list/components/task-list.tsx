@@ -17,7 +17,7 @@ export function TaskList({
   const sortedTasks = sortTasks(filteredTasks, condition);
 
   return (
-    <Card className="h-full flex flex-col shadow-lg border-0 bg-gradient-to-b from-white to-slate-50/50">
+    <Card className="h-full flex flex-col shadow-lg border-0 bg-white/95">
       <CardHeader className="pb-3">
         <CardTitle className="text-lg font-bold text-slate-800">
           Task List

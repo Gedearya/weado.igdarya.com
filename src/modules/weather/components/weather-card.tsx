@@ -116,7 +116,7 @@ export function WeatherCard({
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
-        <Card className="md:col-span-2 border-none overflow-hidden">
+        <Card className="md:col-span-2 border-none overflow-hidden bg-white/95 backdrop-blur-sm">
           <CardContent className="p-0">
             <div
               className="relative h-70 bg-cover bg-center rounded-t-lg"
@@ -167,7 +167,7 @@ export function WeatherCard({
           </CardContent>
         </Card>
 
-        <Card className="md:col-span-3 flex flex-col justify-between">
+        <Card className="md:col-span-3 flex flex-col justify-between bg-white/95 backdrop-blur-sm">
           <CardHeader className="pb-0 px-5 pt-4">
             <CardTitle className="text-base font-semibold">
               Hourly Forecast
