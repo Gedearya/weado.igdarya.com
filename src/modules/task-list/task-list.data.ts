@@ -32,19 +32,25 @@ export function filterTasksByDay(tasks: Task[], day: string): Task[] {
   return tasks.filter((task) => task.dueDate === day || !task.dueDate);
 }
 
+function sortByTime(a: Task, b: Task): number {
+  const timeA = a.dueTime ?? "99:99";
+  const timeB = b.dueTime ?? "99:99";
+  return timeA.localeCompare(timeB);
+}
+
 export function sortTasks(tasks: Task[], condition: WeatherCondition): Task[] {
-  const recommended = tasks.filter(
-    (task) => !task.completed && isMatchWeather(task, condition),
-  );
-  const notRecommended = tasks.filter(
-    (task) => !task.completed && !isMatchWeather(task, condition),
-  );
-  const completedMatch = tasks.filter(
-    (task) => task.completed && isMatchWeather(task, condition),
-  );
-  const completedNoMatch = tasks.filter(
-    (task) => task.completed && !isMatchWeather(task, condition),
-  );
+  const recommended = tasks
+    .filter((task) => !task.completed && isMatchWeather(task, condition))
+    .sort(sortByTime);
+  const notRecommended = tasks
+    .filter((task) => !task.completed && !isMatchWeather(task, condition))
+    .sort(sortByTime);
+  const completedMatch = tasks
+    .filter((task) => task.completed && isMatchWeather(task, condition))
+    .sort(sortByTime);
+  const completedNoMatch = tasks
+    .filter((task) => task.completed && !isMatchWeather(task, condition))
+    .sort(sortByTime);
   return [
     ...recommended,
     ...notRecommended,

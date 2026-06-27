@@ -24,6 +24,8 @@ import {
 type TaskCardProps = {
   task: Task;
   condition: WeatherCondition;
+  onToggle: () => void;
+  onDelete: () => void;
 };
 
 function CategoryBadge({ category }: { category: TaskCategory }) {
@@ -50,7 +52,12 @@ function RecommendedBadge() {
   );
 }
 
-export function TaskCard({ task, condition }: TaskCardProps) {
+export function TaskCard({
+  task,
+  condition,
+  onToggle,
+  onDelete,
+}: TaskCardProps) {
   const recommended = isRecommended(task, condition);
   const cardClassName = recommended ? "bg-green-50 border-green-200" : "";
 
@@ -58,11 +65,13 @@ export function TaskCard({ task, condition }: TaskCardProps) {
     <Card className={cardClassName}>
       <CardHeader className="flex flex-row items-center justify-between p-4 pb-0">
         <div className="flex items-center gap-3">
-          {task.completed ? (
-            <CheckCircle className="w-5 h-5 text-green-500" />
-          ) : (
-            <Circle className="w-5 h-5 text-muted-foreground" />
-          )}
+          <button onClick={onToggle} className="shrink-0">
+            {task.completed ? (
+              <CheckCircle className="w-5 h-5 text-green-500" />
+            ) : (
+              <Circle className="w-5 h-5 text-muted-foreground" />
+            )}
+          </button>
           <div>
             <div className="flex items-center gap-2">
               <CardTitle
@@ -98,6 +107,7 @@ export function TaskCard({ task, condition }: TaskCardProps) {
             variant="ghost"
             size="icon"
             className="h-7 w-7 rounded-full hover:bg-red-50"
+            onClick={onDelete}
           >
             <Trash2 className="w-3.5 h-3.5 text-red-500" />
           </Button>

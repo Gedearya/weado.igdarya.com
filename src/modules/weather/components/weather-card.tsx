@@ -3,10 +3,7 @@ import type {
   HourlyForecast,
   DailyForecast,
 } from "@/modules/weather/weather.type";
-import {
-  WEATHER_BACKGROUND,
-  WEATHER_GRADIENT,
-} from "@/modules/weather/weather.constant";
+import { WEATHER_BACKGROUND } from "@/modules/weather/weather.constant";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -18,6 +15,8 @@ type WeatherCardProps = {
   weather: WeatherData;
   hourly: HourlyForecast[];
   daily: DailyForecast[];
+  selectedDay: string;
+  onSelectDay: (day: string) => void;
 };
 
 function WeatherDetail({
@@ -40,13 +39,22 @@ function WeatherDetail({
   );
 }
 
-export function WeatherCard({ weather, hourly, daily }: WeatherCardProps) {
-  const condition = weather.condition;
-  const bgImage = WEATHER_BACKGROUND[condition] || WEATHER_BACKGROUND.CLEAR;
-  const gradient = WEATHER_GRADIENT[condition] || WEATHER_GRADIENT.CLEAR;
+export function WeatherCard({
+  weather,
+  hourly,
+  daily,
+  selectedDay,
+  onSelectDay,
+}: WeatherCardProps) {
+  const selectedForecast = daily.find((d) => d.date === selectedDay);
+  const condition = selectedForecast?.condition ?? weather.condition;
+  const displayTemp = selectedForecast?.temperature ?? weather.temperature;
+  const displayDesc = selectedForecast
+    ? selectedForecast.condition.charAt(0) +
+      selectedForecast.condition.slice(1).toLowerCase()
+    : weather.description;
 
-  const textColor = "text-white";
-  const textMuted = "text-white/70";
+  const bgImage = WEATHER_BACKGROUND[condition] || WEATHER_BACKGROUND.CLEAR;
 
   const chartData = hourly.map((hour) => ({
     label: hour.time,
@@ -69,7 +77,7 @@ export function WeatherCard({ weather, hourly, daily }: WeatherCardProps) {
             <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" />
             <Input
               placeholder="Search City"
-              className="pl-8 h-8 text-sm bg-white/90 w-full md:w-[180px]"
+              className="pl-8 h-8 text-sm bg-white/90 w-full md:w-45"
               readOnly
             />
           </div>
@@ -81,16 +89,26 @@ export function WeatherCard({ weather, hourly, daily }: WeatherCardProps) {
 
       <div className="flex gap-1.5 overflow-x-auto">
         <Badge
-          variant="default"
-          className="shrink-0 px-3 py-1 cursor-pointer text-xs bg-orange-500 hover:bg-orange-600 text-white border-none"
+          variant={selectedDay === DAY_FILTER.ALL ? "default" : "outline"}
+          className={`shrink-0 px-3 py-1 cursor-pointer text-xs ${
+            selectedDay === DAY_FILTER.ALL
+              ? "bg-orange-500 hover:bg-orange-600 text-white border-none"
+              : "bg-white/20 text-white border-white/30"
+          }`}
+          onClick={() => onSelectDay(DAY_FILTER.ALL)}
         >
           {DAY_FILTER.ALL}
         </Badge>
         {daily.map((day) => (
           <Badge
             key={day.date}
-            variant="outline"
-            className="shrink-0 px-3 py-1 cursor-pointer text-xs bg-white/20 text-white border-white/30"
+            variant={selectedDay === day.date ? "default" : "outline"}
+            className={`shrink-0 px-3 py-1 cursor-pointer text-xs ${
+              selectedDay === day.date
+                ? "bg-orange-500 hover:bg-orange-600 text-white border-none"
+                : "bg-white/20 text-white border-white/30"
+            }`}
+            onClick={() => onSelectDay(day.date)}
           >
             {day.day} · {day.temperature}° {day.icon}
           </Badge>
@@ -101,29 +119,22 @@ export function WeatherCard({ weather, hourly, daily }: WeatherCardProps) {
         <Card className="md:col-span-2 border-none overflow-hidden">
           <CardContent className="p-0">
             <div
-              className="relative h-[280px] bg-cover bg-center rounded-t-lg"
+              className="relative h-70 bg-cover bg-center rounded-t-lg"
               style={{ backgroundImage: `url('${bgImage}')` }}
             >
-              <div
-                className={`absolute inset-0 bg-gradient-to-t ${gradient}`}
-              />
               <div className="relative h-full flex flex-col justify-between p-5">
                 <div className="flex justify-end">
-                  <span className={`text-xs ${textMuted}`}>11:57 AM</span>
+                  <span className="text-xs text-white/70">11:57 AM</span>
                 </div>
                 <div className="flex items-end justify-between">
-                  <p
-                    className={`text-6xl font-bold ${textColor} drop-shadow-lg`}
-                  >
-                    {weather.temperature}°
+                  <p className="text-6xl font-bold text-white drop-shadow-lg">
+                    {displayTemp}°
                   </p>
                   <div className="text-right">
-                    <p
-                      className={`text-lg font-medium ${textColor} drop-shadow-md`}
-                    >
-                      {weather.description}
+                    <p className="text-lg font-medium text-white drop-shadow-md">
+                      {displayDesc}
                     </p>
-                    <p className={`text-sm ${textMuted} drop-shadow-sm`}>
+                    <p className="text-sm text-white/70 drop-shadow-sm">
                       Feels like {weather.feelsLike}°
                     </p>
                   </div>

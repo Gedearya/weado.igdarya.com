@@ -31,13 +31,3 @@ export const WEATHER_ICON: Record<string, string> = {
   CLEAR: "☀️",
   CLOUDS: "⛅",
 };
-
-export const WEATHER_GRADIENT: Record<string, string> = {
-  THUNDERSTORM: "from-gray-900/60 via-purple-900/40 to-gray-800/60",
-  DRIZZLE: "from-slate-700/50 via-blue-800/40 to-gray-700/50",
-  RAIN: "from-slate-800/60 via-blue-900/40 to-gray-800/60",
-  HAZE: "from-yellow-200/40 via-orange-100/30 to-yellow-200/40",
-  FOG: "from-gray-300/50 via-slate-200/40 to-gray-300/50",
-  CLEAR: "from-sky-400/30 via-blue-300/20 to-cyan-200/30",
-  CLOUDS: "from-gray-400/40 via-slate-300/30 to-blue-300/40",
-};

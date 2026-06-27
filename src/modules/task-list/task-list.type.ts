@@ -5,4 +5,6 @@ export type TaskListProps = {
   tasks: Task[];
   condition: WeatherCondition;
   selectedDay: string;
+  onToggleTask: (id: number) => void;
+  onDeleteTask: (id: number) => void;
 };
