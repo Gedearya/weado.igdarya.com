@@ -6,12 +6,12 @@ type HeaderProps = {
 };
 
 export function Header({ condition }: HeaderProps) {
-  const icon = WEATHER_ICON[condition] || "⛅";
+  const currentWeatherIcon = WEATHER_ICON[condition] || "⛅";
 
   return (
     <header className="mb-2">
       <h1 className="text-3xl font-bold text-white drop-shadow-md">
-        {icon} WeaDo
+        {currentWeatherIcon} WeaDo
       </h1>
       <p className="text-white/80 text-sm drop-shadow-sm">
         Weather Todo App, manage tasks based on weather.

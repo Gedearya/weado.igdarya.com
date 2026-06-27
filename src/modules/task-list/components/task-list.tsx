@@ -6,7 +6,11 @@ import {
 import { TaskCard } from "@/modules/task/components/task-card";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
-export function TaskList({ tasks, condition, selectedDay }: TaskListProps) {
+export function TaskList({
+  tasks,
+  weatherCondition: condition,
+  selectedDay,
+}: TaskListProps) {
   const filteredTasks = filterTasksByDay(tasks, selectedDay);
   const sortedTasks = sortTasks(filteredTasks, condition);
 

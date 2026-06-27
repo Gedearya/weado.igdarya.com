@@ -1,8 +1,8 @@
 import type { Task, TaskCategory } from "@/modules/task/task.type";
 import { TASK_CATEGORY } from "@/modules/task/task.constant";
 import type { WeatherCondition } from "@/modules/weather/weather.type";
-import { isRecommended } from "@/modules/task-list/task-list.data";
-import { formatDueDate } from "@/lib/format";
+import { checkIsRecommended } from "@/modules/task-list/task-list.data";
+import { formatDueDate } from "@/lib/date";
 import {
   Card,
   CardContent,
@@ -20,6 +20,7 @@ import {
   Calendar,
   Star,
 } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 type TaskCardProps = {
   task: Task;
@@ -43,19 +44,19 @@ function RecommendedBadge() {
   return (
     <Badge
       variant="outline"
-      className="bg-orange-100 text-orange-600 border-orange-300"
+      className="bg-orange-100 inline-flex gap-1 text-orange-600 border-orange-300"
     >
-      <Star className="w-3 h-3 inline" /> Recommended
+      <Star className="size-3" />
+      <span>Recommended</span>
     </Badge>
   );
 }
 
 export function TaskCard({ task, condition }: TaskCardProps) {
-  const recommended = isRecommended(task, condition);
-  const cardClassName = recommended ? "bg-green-50 border-green-200" : "";
+  const isRecommended = checkIsRecommended(task, condition);
 
   return (
-    <Card className={cardClassName}>
+    <Card className={cn(isRecommended ? "bg-green-50 border-green-200" : "")}>
       <CardHeader className="flex flex-row items-center justify-between p-4 pb-0">
         <div className="flex items-center gap-3">
           {task.completed ? (
@@ -106,7 +107,7 @@ export function TaskCard({ task, condition }: TaskCardProps) {
 
       <CardContent className="flex items-center gap-2 p-4 pt-2">
         <CategoryBadge category={task.category} />
-        {recommended && <RecommendedBadge />}
+        {isRecommended && <RecommendedBadge />}
       </CardContent>
     </Card>
   );

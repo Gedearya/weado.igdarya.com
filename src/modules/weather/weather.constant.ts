@@ -8,6 +8,9 @@ export const WEATHER_CONDITION = {
   CLOUDS: "CLOUDS",
 } as const;
 
+/**
+ * TODO: Move into index.css
+ */
 export const WEATHER_BACKGROUND: Record<string, string> = {
   THUNDERSTORM:
     "https://images.unsplash.com/photo-1605727216801-e27ce1d0cc28?w=800&q=80",
@@ -32,6 +35,9 @@ export const WEATHER_ICON: Record<string, string> = {
   CLOUDS: "⛅",
 };
 
+/**
+ * TODO: Refactor into component with variant
+ */
 export const WEATHER_GRADIENT: Record<string, string> = {
   THUNDERSTORM: "from-gray-900/60 via-purple-900/40 to-gray-800/60",
   DRIZZLE: "from-slate-700/50 via-blue-800/40 to-gray-700/50",

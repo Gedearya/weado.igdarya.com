@@ -25,3 +25,9 @@
   --color-ring: hsl(240 5.9% 10%);
   --radius: 0.625rem;
 }
+
+@layer components {
+  .bg-image-app {
+    background-image: url("https://images.unsplash.com/photo-1517483000871-1dbf64a6e1c6?w=1920&q=80");
+  }
+}

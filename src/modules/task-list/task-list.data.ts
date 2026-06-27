@@ -18,7 +18,7 @@ export function isMatchWeather(
   return task.category === getRecommendedCategory(condition);
 }
 
-export function isRecommended(
+export function checkIsRecommended(
   task: Task,
   condition: WeatherCondition,
 ): boolean {

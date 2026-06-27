@@ -62,30 +62,30 @@ cp .env.example .env
 
 - Get the API key from [OpenWeatherMap](https://openweathermap.org/api) and put it in `.env`:
 
-```text
+```sh
 OPENWEATHERMAP_API_KEY=your_actual_api_key
 ```
 
 - Run the development server:
 
-```bash
+```sh
 bun run dev
 ```
 
 - Run TypeScript files directly (no compile needed):
 
-```bash
+```sh
 bun src/data/tasks.ts
 ```
 
 ## Scripts
 
-| Command              | Description              |
-| -------------------- | ------------------------ |
-| `bun run dev`        | Start development server |
-| `bun run build`      | Build for production     |
-| `bun run test`       | Run tests (single run)   |
-| `bun run test:watch` | Run tests in watch mode  |
-| `bun run lint`       | Run ESLint               |
-| `bun run format`     | Format code via Prettier |
-| `bun run preview`    | Preview production build |
+| Command          | Description              |
+| ---------------- | ------------------------ |
+| `bun dev`        | Start development server |
+| `bun run build`  | Build for production     |
+| `bun test`       | Run tests (single run)   |
+| `bun test:watch` | Run tests in watch mode  |
+| `bun lint`       | Run ESLint               |
+| `bun format`     | Format code via Prettier |
+| `bun preview`    | Preview production build |

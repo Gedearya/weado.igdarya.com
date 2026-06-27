@@ -23,11 +23,11 @@ type WeatherCardProps = {
 function WeatherDetail({
   icon,
   label,
-  value,
+  text,
 }: {
   icon: React.ReactNode;
   label: string;
-  value: string;
+  text: string;
 }) {
   return (
     <div className="flex flex-col items-center justify-center gap-0.5 bg-amber-50 rounded-lg p-2 w-full h-full">
@@ -35,7 +35,7 @@ function WeatherDetail({
         {icon}
         <span className="text-[10px]">{label}</span>
       </div>
-      <p className="text-xs font-semibold">{value}</p>
+      <p className="text-xs font-semibold">{text}</p>
     </div>
   );
 }
@@ -45,14 +45,21 @@ export function WeatherCard({ weather, hourly, daily }: WeatherCardProps) {
   const bgImage = WEATHER_BACKGROUND[condition] || WEATHER_BACKGROUND.CLEAR;
   const gradient = WEATHER_GRADIENT[condition] || WEATHER_GRADIENT.CLEAR;
 
-  const textColor = "text-white";
   const textMuted = "text-white/70";
 
-  const chartData = hourly.map((hour) => ({
+  const weatherChartData = hourly.map((hour) => ({
     label: hour.time,
     value: hour.temperature,
     rainChance: hour.rainChance,
   }));
+
+  const weatherCardDetails = {
+    wind: {
+      label: "",
+      icon: "",
+      text: "",
+    },
+  };
 
   return (
     <div className="space-y-3">
@@ -100,26 +107,25 @@ export function WeatherCard({ weather, hourly, daily }: WeatherCardProps) {
       <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
         <Card className="md:col-span-2 border-none overflow-hidden">
           <CardContent className="p-0">
+            {/* TODO: Refactor into its own component with variant */}
             <div
+              // condition="thunderstorm"
               className="relative h-[280px] bg-cover bg-center rounded-t-lg"
               style={{ backgroundImage: `url('${bgImage}')` }}
             >
-              <div
-                className={`absolute inset-0 bg-gradient-to-t ${gradient}`}
-              />
+              <div className={`absolute inset-0 bg-linear-to-t ${gradient}`} />
+
               <div className="relative h-full flex flex-col justify-between p-5">
                 <div className="flex justify-end">
                   <span className={`text-xs ${textMuted}`}>11:57 AM</span>
                 </div>
                 <div className="flex items-end justify-between">
-                  <p
-                    className={`text-6xl font-bold ${textColor} drop-shadow-lg`}
-                  >
+                  <p className={`text-6xl font-bold text-white drop-shadow-lg`}>
                     {weather.temperature}°
                   </p>
                   <div className="text-right">
                     <p
-                      className={`text-lg font-medium ${textColor} drop-shadow-md`}
+                      className={`text-lg font-medium text-white drop-shadow-md`}
                     >
                       {weather.description}
                     </p>
@@ -135,22 +141,22 @@ export function WeatherCard({ weather, hourly, daily }: WeatherCardProps) {
               <WeatherDetail
                 icon={<Wind className="w-3.5 h-3.5" />}
                 label="Wind"
-                value={`${weather.windSpeed} m/s ${weather.windDirection}`}
+                text={`${weather.windSpeed} m/s ${weather.windDirection}`}
               />
               <WeatherDetail
                 icon={<Droplets className="w-3.5 h-3.5" />}
                 label="Humidity"
-                value={`${weather.humidity}%`}
+                text={`${weather.humidity}%`}
               />
               <WeatherDetail
                 icon={<Eye className="w-3.5 h-3.5" />}
                 label="Visibility"
-                value={`${weather.visibility} km`}
+                text={`${weather.visibility} km`}
               />
               <WeatherDetail
                 icon={<Gauge className="w-3.5 h-3.5" />}
                 label="Pressure"
-                value={`${weather.pressure} hPa`}
+                text={`${weather.pressure} hPa`}
               />
             </div>
           </CardContent>
@@ -163,7 +169,11 @@ export function WeatherCard({ weather, hourly, daily }: WeatherCardProps) {
             </CardTitle>
           </CardHeader>
           <CardContent className="flex flex-col justify-end px-5 pb-4 pt-1 gap-2">
-            <SimpleLineChart data={chartData} color="#f97316" height={150} />
+            <SimpleLineChart
+              data={weatherChartData}
+              color="#f97316"
+              height={150}
+            />
             <div className="grid grid-cols-4 md:grid-cols-8 gap-1.5">
               {hourly.map((hour) => (
                 <div

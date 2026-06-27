@@ -3,6 +3,6 @@ import type { WeatherCondition } from "@/modules/weather/weather.type";
 
 export type TaskListProps = {
   tasks: Task[];
-  condition: WeatherCondition;
+  weatherCondition: WeatherCondition;
   selectedDay: string;
 };
