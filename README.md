@@ -21,7 +21,7 @@ I Gede Arya Danny Pratama
 
 ![Layout](./docs/weado-layout.jpg)
 
-![Landing Page](./docs/landing-page.jpg)
+![Landing Page](./docs/weado-landing-page.jpg)
 
 ## Figma Design
 

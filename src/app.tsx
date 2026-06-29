@@ -53,7 +53,7 @@ export function App() {
     <div className="app-background">
       <div className="min-h-screen bg-black/30 backdrop-blur-xs py-8 px-4">
         <div className="max-w-5xl w-full mx-auto space-y-5">
-          <Header weatherCondition={weatherData.condition} />
+          <Header weatherCondition={currentWeatherCondition} />
           <WeatherCard
             weather={weatherData}
             hourlyForecast={activeHourlyForecast}
