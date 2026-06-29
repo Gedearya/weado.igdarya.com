@@ -13,7 +13,10 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Plus, Calendar as CalendarIcon, Clock, Save, X } from "lucide-react";
-import { TASK_CATEGORY } from "@/modules/task/task.constant";
+import {
+  TASK_CATEGORY,
+  DEFAULT_TIME_SLOTS,
+} from "@/modules/task/task.constant";
 import type {
   DailyForecast,
   HourlyForecast,
@@ -56,17 +59,6 @@ export function TaskForm({
     }
   }, [taskToEdit]);
 
-  const DEFAULT_TIME_SLOTS = [
-    "00:00",
-    "03:00",
-    "06:00",
-    "09:00",
-    "12:00",
-    "15:00",
-    "18:00",
-    "21:00",
-  ];
-
   const forecastTimeSlots = dueDate
     ? hourlyForecast
         .filter((hour) => hour.datetime.startsWith(dueDate))
@@ -95,6 +87,7 @@ export function TaskForm({
         ...(dueDate ? { dueDate } : { dueDate: undefined }),
         ...(dueTime ? { dueTime } : { dueTime: undefined }),
       });
+      onCancelEdit();
     } else {
       onAddTask({
         title: title.trim(),

@@ -105,3 +105,11 @@
     cursor: pointer;
   }
 }
+
+.app-background {
+  min-height: 100vh;
+  background-image: url("https://images.unsplash.com/photo-1517483000871-1dbf64a6e1c6?w=1920&q=80");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}

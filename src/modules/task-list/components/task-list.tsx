@@ -21,7 +21,7 @@ export function TaskList({
   );
 
   return (
-    <Card className="h-full flex flex-col bg-white/95 backdrop-blur-sm max-h-[540px]">
+    <Card className="flex flex-col bg-white/95 backdrop-blur-sm max-h-[550px]">
       <CardHeader className="pb-3">
         <CardTitle className="text-lg font-bold text-slate-800">
           Task List

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "sonner";
 import { Header } from "@/components/header";
 import { WeatherCard } from "@/modules/weather/components/weather-card";
 import { TaskForm } from "@/modules/task/components/task-form";
@@ -19,6 +20,24 @@ export function App() {
   const { tasks, addTask, updateTask, toggleTaskComplete, deleteTask } =
     useTasks();
 
+  const handleAddTask = (newTask: Omit<Task, "id">) => {
+    addTask(newTask);
+    toast.success("Task created successfully");
+  };
+
+  const handleUpdateTask = (
+    taskId: number,
+    fields: Partial<Omit<Task, "id">>,
+  ) => {
+    updateTask(taskId, fields);
+    toast.success("Task updated successfully");
+  };
+
+  const handleDeleteTask = (taskId: number) => {
+    deleteTask(taskId);
+    toast.error("Task deleted");
+  };
+
   const currentWeatherCondition =
     selectedDay === DAY_FILTER.ALL
       ? weatherData.condition
@@ -31,8 +50,8 @@ export function App() {
       : (allHourlyForecasts[selectedDay] ?? hourlyForecast);
 
   return (
-    <div className="min-h-screen bg-[url('https://images.unsplash.com/photo-1517483000871-1dbf64a6e1c6?w=1920&q=80')] bg-cover bg-center bg-fixed">
-      <div className="min-h-screen bg-black/30 backdrop-blur-[1px] py-8 px-4">
+    <div className="app-background">
+      <div className="min-h-screen bg-black/30 backdrop-blur-xs py-8 px-4">
         <div className="max-w-5xl w-full mx-auto space-y-5">
           <Header weatherCondition={weatherData.condition} />
           <WeatherCard
@@ -42,14 +61,14 @@ export function App() {
             selectedDay={selectedDay}
             onSelectDay={setSelectedDay}
           />
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-3 md:items-start">
             <div className="md:col-span-2">
               <TaskForm
                 dailyForecast={dailyForecast}
                 hourlyForecast={hourlyForecast}
                 taskToEdit={taskToEdit}
-                onAddTask={addTask}
-                onUpdateTask={updateTask}
+                onAddTask={handleAddTask}
+                onUpdateTask={handleUpdateTask}
                 onCancelEdit={() => setTaskToEdit(null)}
               />
             </div>
@@ -60,7 +79,7 @@ export function App() {
                 selectedDay={selectedDay}
                 onToggleTask={toggleTaskComplete}
                 onEditTask={setTaskToEdit}
-                onDeleteTask={deleteTask}
+                onDeleteTask={handleDeleteTask}
               />
             </div>
           </div>

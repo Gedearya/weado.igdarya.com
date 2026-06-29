@@ -30,8 +30,7 @@ function CalendarDayButton({
         "size-(--cell-size) rounded-md p-0 text-sm font-normal aria-selected:opacity-100",
         "data-[today=true]:bg-accent data-[today=true]:text-accent-foreground",
         "data-[selected=true]:bg-primary data-[selected=true]:text-primary-foreground data-[selected=true]:hover:bg-primary data-[selected=true]:hover:text-primary-foreground",
-        "data-[disabled=true]:text-muted-foreground data-[disabled=true]:opacity-50",
-        "data-[outside=true]:text-muted-foreground data-[outside=true]:opacity-50",
+        "data-[disabled=true]:text-muted-foreground data-[disabled=true]:opacity-50 data-[disabled=true]:pointer-events-none",
         "hover:bg-accent hover:text-accent-foreground",
         className,
       )}
