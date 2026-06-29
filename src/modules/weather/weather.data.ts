@@ -70,40 +70,40 @@ const fiveDayWeatherSimulations: DailyWeatherSimulation[] = [
     visibility: 12,
   },
   {
-    temperature: 29,
-    feelsLike: 33,
-    icon: "🌧️",
-    condition: WEATHER_CONDITION.RAIN,
-    description: "Light Rain",
-    humidity: 90,
-    windSpeed: 5,
+    temperature: 26,
+    feelsLike: 28,
+    icon: "⛈️",
+    condition: WEATHER_CONDITION.THUNDERSTORM,
+    description: "Thunderstorm",
+    humidity: 95,
+    windSpeed: 8,
     windDirection: "NW",
-    pressure: 1008,
-    visibility: 6,
+    pressure: 1002,
+    visibility: 3,
   },
   {
-    temperature: 28,
-    feelsLike: 32,
-    icon: "🌧️",
-    condition: WEATHER_CONDITION.RAIN,
-    description: "Moderate Rain",
-    humidity: 92,
-    windSpeed: 6,
-    windDirection: "N",
-    pressure: 1006,
-    visibility: 5,
-  },
-  {
-    temperature: 30,
-    feelsLike: 34,
-    icon: "⛅",
-    condition: WEATHER_CONDITION.CLOUDS,
-    description: "Mostly Cloudy",
-    humidity: 78,
+    temperature: 27,
+    feelsLike: 30,
+    icon: "🌦️",
+    condition: WEATHER_CONDITION.DRIZZLE,
+    description: "Light Drizzle",
+    humidity: 88,
     windSpeed: 4,
+    windDirection: "N",
+    pressure: 1008,
+    visibility: 7,
+  },
+  {
+    temperature: 29,
+    feelsLike: 32,
+    icon: "🌫️",
+    condition: WEATHER_CONDITION.HAZE,
+    description: "Hazy",
+    humidity: 85,
+    windSpeed: 2,
     windDirection: "W",
     pressure: 1010,
-    visibility: 9,
+    visibility: 4,
   },
 ];
 
@@ -113,16 +113,7 @@ export const dailyForecast: DailyForecast[] = fiveDayWeatherSimulations.map(
     return {
       date: formatDateToString(forecastDate),
       day: getDayLabelByIndex(forecastDate, dayIndex),
-      temperature: simulation.temperature,
-      feelsLike: simulation.feelsLike,
-      icon: simulation.icon,
-      condition: simulation.condition,
-      description: simulation.description,
-      humidity: simulation.humidity,
-      windSpeed: simulation.windSpeed,
-      windDirection: simulation.windDirection,
-      pressure: simulation.pressure,
-      visibility: simulation.visibility,
+      ...simulation,
     };
   },
 );
@@ -146,6 +137,7 @@ const hourlyTimeSlots = [
 ];
 
 const fiveDayHourlySimulations: HourlyWeatherSimulation[][] = [
+  // Day 0: Clouds
   [
     {
       temperature: 26,
@@ -161,13 +153,13 @@ const fiveDayHourlySimulations: HourlyWeatherSimulation[][] = [
     },
     {
       temperature: 27,
-      rainChance: 0,
+      rainChance: 5,
       icon: "⛅",
       condition: WEATHER_CONDITION.CLOUDS,
     },
     {
       temperature: 30,
-      rainChance: 0,
+      rainChance: 5,
       icon: "⛅",
       condition: WEATHER_CONDITION.CLOUDS,
     },
@@ -196,6 +188,8 @@ const fiveDayHourlySimulations: HourlyWeatherSimulation[][] = [
       condition: WEATHER_CONDITION.CLEAR,
     },
   ],
+
+  // Day 1: Clear
   [
     {
       temperature: 25,
@@ -246,152 +240,158 @@ const fiveDayHourlySimulations: HourlyWeatherSimulation[][] = [
       condition: WEATHER_CONDITION.CLEAR,
     },
   ],
+
+  // Day 2: Thunderstorm
   [
     {
-      temperature: 25,
-      rainChance: 30,
-      icon: "🌧️",
-      condition: WEATHER_CONDITION.RAIN,
-    },
-    {
       temperature: 24,
-      rainChance: 40,
-      icon: "🌧️",
-      condition: WEATHER_CONDITION.RAIN,
-    },
-    {
-      temperature: 25,
       rainChance: 60,
-      icon: "🌧️",
-      condition: WEATHER_CONDITION.RAIN,
-    },
-    {
-      temperature: 27,
-      rainChance: 70,
-      icon: "🌧️",
-      condition: WEATHER_CONDITION.RAIN,
-    },
-    {
-      temperature: 29,
-      rainChance: 50,
-      icon: "🌧️",
-      condition: WEATHER_CONDITION.RAIN,
-    },
-    {
-      temperature: 28,
-      rainChance: 40,
-      icon: "🌧️",
-      condition: WEATHER_CONDITION.RAIN,
-    },
-    {
-      temperature: 26,
-      rainChance: 30,
-      icon: "🌧️",
-      condition: WEATHER_CONDITION.RAIN,
-    },
-    {
-      temperature: 25,
-      rainChance: 20,
-      icon: "🌙",
-      condition: WEATHER_CONDITION.CLOUDS,
-    },
-  ],
-  [
-    {
-      temperature: 24,
-      rainChance: 50,
       icon: "🌧️",
       condition: WEATHER_CONDITION.RAIN,
     },
     {
       temperature: 23,
-      rainChance: 60,
-      icon: "🌧️",
-      condition: WEATHER_CONDITION.RAIN,
-    },
-    {
-      temperature: 24,
       rainChance: 70,
       icon: "🌧️",
       condition: WEATHER_CONDITION.RAIN,
     },
     {
-      temperature: 26,
+      temperature: 24,
       rainChance: 80,
-      icon: "🌧️",
-      condition: WEATHER_CONDITION.RAIN,
+      icon: "⛈️",
+      condition: WEATHER_CONDITION.THUNDERSTORM,
     },
     {
-      temperature: 28,
+      temperature: 25,
+      rainChance: 90,
+      icon: "⛈️",
+      condition: WEATHER_CONDITION.THUNDERSTORM,
+    },
+    {
+      temperature: 26,
+      rainChance: 85,
+      icon: "⛈️",
+      condition: WEATHER_CONDITION.THUNDERSTORM,
+    },
+    {
+      temperature: 25,
+      rainChance: 75,
+      icon: "⛈️",
+      condition: WEATHER_CONDITION.THUNDERSTORM,
+    },
+    {
+      temperature: 24,
       rainChance: 60,
       icon: "🌧️",
       condition: WEATHER_CONDITION.RAIN,
     },
     {
-      temperature: 27,
-      rainChance: 50,
-      icon: "🌧️",
-      condition: WEATHER_CONDITION.RAIN,
-    },
-    {
-      temperature: 25,
+      temperature: 23,
       rainChance: 40,
-      icon: "🌧️",
-      condition: WEATHER_CONDITION.RAIN,
-    },
-    {
-      temperature: 24,
-      rainChance: 30,
       icon: "🌙",
       condition: WEATHER_CONDITION.CLOUDS,
     },
   ],
+
+  // Day 3: Drizzle
   [
     {
-      temperature: 25,
-      rainChance: 10,
+      temperature: 24,
+      rainChance: 20,
       icon: "🌙",
+      condition: WEATHER_CONDITION.CLOUDS,
+    },
+    {
+      temperature: 23,
+      rainChance: 25,
+      icon: "🌙",
+      condition: WEATHER_CONDITION.CLOUDS,
+    },
+    {
+      temperature: 25,
+      rainChance: 35,
+      icon: "🌦️",
+      condition: WEATHER_CONDITION.DRIZZLE,
+    },
+    {
+      temperature: 26,
+      rainChance: 40,
+      icon: "🌦️",
+      condition: WEATHER_CONDITION.DRIZZLE,
+    },
+    {
+      temperature: 27,
+      rainChance: 45,
+      icon: "🌦️",
+      condition: WEATHER_CONDITION.DRIZZLE,
+    },
+    {
+      temperature: 26,
+      rainChance: 35,
+      icon: "🌦️",
+      condition: WEATHER_CONDITION.DRIZZLE,
+    },
+    {
+      temperature: 25,
+      rainChance: 25,
+      icon: "⛅",
       condition: WEATHER_CONDITION.CLOUDS,
     },
     {
       temperature: 24,
-      rainChance: 5,
+      rainChance: 15,
       icon: "🌙",
-      condition: WEATHER_CONDITION.CLOUDS,
+      condition: WEATHER_CONDITION.CLEAR,
+    },
+  ],
+
+  // Day 4: Haze
+  [
+    {
+      temperature: 25,
+      rainChance: 0,
+      icon: "🌙",
+      condition: WEATHER_CONDITION.CLEAR,
+    },
+    {
+      temperature: 24,
+      rainChance: 0,
+      icon: "🌙",
+      condition: WEATHER_CONDITION.CLEAR,
     },
     {
       temperature: 26,
-      rainChance: 10,
-      icon: "⛅",
-      condition: WEATHER_CONDITION.CLOUDS,
+      rainChance: 0,
+      icon: "🌫️",
+      condition: WEATHER_CONDITION.HAZE,
+    },
+    {
+      temperature: 28,
+      rainChance: 0,
+      icon: "🌫️",
+      condition: WEATHER_CONDITION.HAZE,
     },
     {
       temperature: 29,
-      rainChance: 10,
-      icon: "⛅",
-      condition: WEATHER_CONDITION.CLOUDS,
+      rainChance: 5,
+      icon: "🌫️",
+      condition: WEATHER_CONDITION.HAZE,
     },
     {
-      temperature: 30,
-      rainChance: 15,
-      icon: "⛅",
-      condition: WEATHER_CONDITION.CLOUDS,
-    },
-    {
-      temperature: 29,
-      rainChance: 20,
-      icon: "⛅",
-      condition: WEATHER_CONDITION.CLOUDS,
+      temperature: 28,
+      rainChance: 5,
+      icon: "🌫️",
+      condition: WEATHER_CONDITION.HAZE,
     },
     {
       temperature: 27,
-      rainChance: 10,
-      icon: "⛅",
-      condition: WEATHER_CONDITION.CLOUDS,
+      rainChance: 0,
+      icon: "🌫️",
+      condition: WEATHER_CONDITION.HAZE,
     },
     {
-      temperature: 26,
-      rainChance: 5,
+      temperature: 25,
+      rainChance: 0,
       icon: "🌙",
       condition: WEATHER_CONDITION.CLEAR,
     },
@@ -406,10 +406,7 @@ export const allHourlyForecasts: Record<string, HourlyForecast[]> =
         (simulation, hourIndex) => ({
           datetime: `${dateString} ${hourlyTimeSlots[hourIndex]}`,
           time: hourlyTimeSlots[hourIndex],
-          temperature: simulation.temperature,
-          rainChance: simulation.rainChance,
-          icon: simulation.icon,
-          condition: simulation.condition,
+          ...simulation,
         }),
       );
       return [dateString, hourlyData];

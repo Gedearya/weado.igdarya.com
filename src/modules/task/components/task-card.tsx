@@ -34,6 +34,7 @@ import {
   Calendar,
   Star,
 } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 type TaskCardProps = {
   task: Task;
@@ -110,7 +111,10 @@ export function TaskCard({
 
   return (
     <Card
-      className={`${cardClassName} shadow-sm transition-shadow duration-200 hover:shadow-md`}
+      className={cn(
+        "shadow-sm transition-shadow duration-200 hover:shadow-md",
+        cardClassName,
+      )}
     >
       <CardHeader className="flex flex-row items-center justify-between p-4 pb-0">
         <div className="flex items-center gap-3">

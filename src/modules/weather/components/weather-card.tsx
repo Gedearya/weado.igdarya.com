@@ -9,8 +9,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { SimpleLineChart } from "@/components/ui/chart";
+import { HourlyForecastItem } from "@/modules/weather/components/hourly-forecast-item";
 import { DAY_FILTER } from "@/modules/task-list/task-list.constant";
 import { MapPin, Search, Droplets, Wind, Eye, Gauge } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 type WeatherCardProps = {
   weather: WeatherData;
@@ -68,7 +70,6 @@ export function WeatherCard({
   const backgroundImage =
     WEATHER_BACKGROUND[displayCondition] || WEATHER_BACKGROUND.CLEAR;
   const currentTimeFormatted = format(new Date(), "h:mm a");
-
   const temperatureChartData = hourlyForecast.map((hour) => ({
     label: hour.time,
     value: hour.temperature,
@@ -103,7 +104,12 @@ export function WeatherCard({
       <div className="flex gap-1.5 overflow-x-auto">
         <Badge
           variant={selectedDay === DAY_FILTER.ALL ? "default" : "outline"}
-          className={`shrink-0 px-3 py-1 cursor-pointer text-xs ${selectedDay === DAY_FILTER.ALL ? "bg-orange-500 hover:bg-orange-600 text-white border-none" : "bg-white/20 text-white border-white/30"}`}
+          className={cn(
+            "shrink-0 px-3 py-1 cursor-pointer text-xs",
+            selectedDay === DAY_FILTER.ALL
+              ? "bg-orange-500 hover:bg-orange-600 text-white border-none"
+              : "bg-white/20 text-white border-white/30",
+          )}
           onClick={() => onSelectDay(DAY_FILTER.ALL)}
         >
           {DAY_FILTER.ALL}
@@ -112,7 +118,12 @@ export function WeatherCard({
           <Badge
             key={forecast.date}
             variant={selectedDay === forecast.date ? "default" : "outline"}
-            className={`shrink-0 px-3 py-1 cursor-pointer text-xs ${selectedDay === forecast.date ? "bg-orange-500 hover:bg-orange-600 text-white border-none" : "bg-white/20 text-white border-white/30"}`}
+            className={cn(
+              "shrink-0 px-3 py-1 cursor-pointer text-xs",
+              selectedDay === forecast.date
+                ? "bg-orange-500 hover:bg-orange-600 text-white border-none"
+                : "bg-white/20 text-white border-white/30",
+            )}
             onClick={() => onSelectDay(forecast.date)}
           >
             {forecast.day} · {forecast.temperature}° {forecast.icon}
@@ -149,26 +160,30 @@ export function WeatherCard({
               </div>
             </div>
             <div className="grid grid-cols-2 gap-2 p-2">
-              <WeatherDetailItem
-                icon={<Wind className="w-3.5 h-3.5" />}
-                label="Wind"
-                value={`${displayWindSpeed} m/s ${displayWindDirection}`}
-              />
-              <WeatherDetailItem
-                icon={<Droplets className="w-3.5 h-3.5" />}
-                label="Humidity"
-                value={`${displayHumidity}%`}
-              />
-              <WeatherDetailItem
-                icon={<Eye className="w-3.5 h-3.5" />}
-                label="Visibility"
-                value={`${displayVisibility} km`}
-              />
-              <WeatherDetailItem
-                icon={<Gauge className="w-3.5 h-3.5" />}
-                label="Pressure"
-                value={`${displayPressure} hPa`}
-              />
+              {[
+                {
+                  icon: <Wind className="w-3.5 h-3.5" />,
+                  label: "Wind",
+                  value: `${displayWindSpeed} m/s ${displayWindDirection}`,
+                },
+                {
+                  icon: <Droplets className="w-3.5 h-3.5" />,
+                  label: "Humidity",
+                  value: `${displayHumidity}%`,
+                },
+                {
+                  icon: <Eye className="w-3.5 h-3.5" />,
+                  label: "Visibility",
+                  value: `${displayVisibility} km`,
+                },
+                {
+                  icon: <Gauge className="w-3.5 h-3.5" />,
+                  label: "Pressure",
+                  value: `${displayPressure} hPa`,
+                },
+              ].map((detail) => (
+                <WeatherDetailItem key={detail.label} {...detail} />
+              ))}
             </div>
           </CardContent>
         </Card>
@@ -187,19 +202,7 @@ export function WeatherCard({
             />
             <div className="grid grid-cols-4 md:grid-cols-8 gap-1.5">
               {hourlyForecast.map((hour) => (
-                <div
-                  key={hour.datetime}
-                  className="flex flex-col items-center gap-0.5 bg-amber-50 rounded-lg py-2 px-1"
-                >
-                  <p className="text-[10px] text-muted-foreground">
-                    {hour.time}
-                  </p>
-                  <span className="text-sm">{hour.icon}</span>
-                  <p className="text-[10px] text-blue-500">
-                    {hour.rainChance}%
-                  </p>
-                  <p className="text-sm font-bold">{hour.temperature}°</p>
-                </div>
+                <HourlyForecastItem key={hour.datetime} hour={hour} />
               ))}
             </div>
           </CardContent>
