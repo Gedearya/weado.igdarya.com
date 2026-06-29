@@ -11,28 +11,17 @@ I Gede Arya Danny Pratama
 - 🔗 <https://weado.igdarya.com>
 - 🔗 <https://weado-igdarya.vercel.app/>
 
-## Features
-
-- Add, edit, delete, and mark tasks as complete
-- Real-time weather integration from OpenWeatherMap
-- Automatic sorting by weather (indoor/outdoor)
-- Recommendation badges on weather-appropriate tasks
-- Persistent storage via localStorage
-- Responsive design (mobile & desktop)
-- Automatic geolocation or manual city input
-
-## Tech Stack
-
-- React 19 + TypeScript
-- Vite
-- Bun (runtime & package manager)
-- Tailwind CSS v4 + shadcn/ui
-- Vitest + React Testing Library + fast-check
-
-## Design & Inspiration
+## Design references
 
 - [Open Weather API](https://openweathermap.org/)
+
 - [Microsoft To Do](https://to-do.office.com)
+
+## Screenshots
+
+![Layout](./docs/weado-layout.jpg)
+
+![Landing Page](./docs/landing-page.jpg)
 
 ## Figma Design
 
@@ -40,52 +29,94 @@ I Gede Arya Danny Pratama
 
 ## Flowchart
 
-![Weado Flowchart](./docs/weado-flowchart.jpg)
+![Flowchart](./docs/weado-flowchart.jpg)
 
-## Screenshot
+## What it does
 
-![Weado Screenshot](./docs/weado-layout.jpg)
+- Full CRUD for tasks, saved to localStorage (persists on refresh)
+- Recommends tasks based on current weather condition
+- Tasks are sorted by priority: recommended first, then active, overdue, and completed last
+- Overdue tasks get flagged automatically when the due date passes
+- Calendar date picker limited to the 5-day forecast window
+- Time picker as a grid of buttons (not a dropdown)
+- Day filter tabs to view tasks per day
+- Delete confirmation dialog before removing a task
+- Toast notifications on create, update, and delete
+- Weather card updates dynamically when switching days (chart, background, details all change)
+- Shows real current time on the weather card
 
-## Setup
+## What's next
 
-- Clone the repository and install dependencies:
+- Hook up OpenWeatherMap API for real weather data
+- Auto-detect location or let users search cities
+- Move task storage to a backend/database
+- Add user auth
+
+## Tech
+
+- React 19, TypeScript, Vite 8
+- Bun as runtime and package manager
+- Tailwind CSS v4, shadcn/ui components
+- react-day-picker, sonner, recharts, date-fns, lucide-react
+
+## Structure
+
+```
+src/
+├── app.tsx
+├── main.tsx
+├── index.css
+├── components/
+│   ├── header.tsx
+│   └── ui/                    # shadcn components
+├── lib/
+│   ├── utils.ts               # cn() helper
+│   └── format.ts              # date formatting
+└── modules/
+    ├── task/
+    │   ├── task.type.ts
+    │   ├── task.constant.ts
+    │   ├── task.data.ts       # seed/default data
+    │   ├── task.storage.ts    # localStorage logic
+    │   ├── task.hooks.ts      # useTasks() hook
+    │   └── components/
+    │       ├── task-card.tsx
+    │       └── task-form.tsx
+    ├── task-list/
+    │   ├── task-list.type.ts
+    │   ├── task-list.constant.ts
+    │   ├── task-list.data.ts  # sorting, filtering, recommendation
+    │   └── components/
+    │       └── task-list.tsx
+    └── weather/
+        ├── weather.type.ts
+        ├── weather.constant.ts
+        ├── weather.data.ts    # simulated data (dynamic dates)
+        └── components/
+            └── weather-card.tsx
+```
+
+## Getting started
 
 ```bash
 bun install
+bun dev
 ```
 
-- Create `.env` file from template:
+When API integration is ready, create a `.env` file:
 
-```bash
-cp .env.example .env
+```
+VITE_OPENWEATHERMAP_API_KEY=your_key_here
 ```
 
-- Get the API key from [OpenWeatherMap](https://openweathermap.org/api) and put it in `.env`:
-
-```text
-OPENWEATHERMAP_API_KEY=your_actual_api_key
-```
-
-- Run the development server:
-
-```bash
-bun run dev
-```
-
-- Run TypeScript files directly (no compile needed):
-
-```bash
-bun src/data/tasks.ts
-```
+Get one from [OpenWeatherMap](https://openweathermap.org/api).
 
 ## Scripts
 
-| Command              | Description              |
-| -------------------- | ------------------------ |
-| `bun run dev`        | Start development server |
-| `bun run build`      | Build for production     |
-| `bun run test`       | Run tests (single run)   |
-| `bun run test:watch` | Run tests in watch mode  |
-| `bun run lint`       | Run ESLint               |
-| `bun run format`     | Format code via Prettier |
-| `bun run preview`    | Preview production build |
+| Command         | What it does         |
+| --------------- | -------------------- |
+| `bun dev`       | Dev server           |
+| `bun run build` | Production build     |
+| `bun lint`      | Lint with ESLint     |
+| `bun format`    | Format with Prettier |
+| `bun preview`   | Preview the build    |

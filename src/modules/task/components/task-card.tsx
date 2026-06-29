@@ -1,7 +1,10 @@
 import type { Task, TaskCategory } from "@/modules/task/task.type";
 import { TASK_CATEGORY } from "@/modules/task/task.constant";
 import type { WeatherCondition } from "@/modules/weather/weather.type";
-import { isTaskRecommendedForWeather } from "@/modules/task-list/task-list.data";
+import {
+  isTaskRecommendedForWeather,
+  isTaskOverdue,
+} from "@/modules/task-list/task-list.data";
 import { formatDueDate } from "@/lib/format";
 import {
   Card,
@@ -40,7 +43,24 @@ type TaskCardProps = {
   onDelete: () => void;
 };
 
-function CategoryBadge({ category }: { category: TaskCategory }) {
+function CategoryBadge({
+  category,
+  isCompleted,
+}: {
+  category: TaskCategory;
+  isCompleted: boolean;
+}) {
+  if (isCompleted) {
+    return (
+      <Badge
+        variant="outline"
+        className="bg-gray-100 text-gray-500 border-gray-300"
+      >
+        {category === TASK_CATEGORY.INDOOR ? "Indoor" : "Outdoor"}
+      </Badge>
+    );
+  }
+
   const badgeClassName =
     category === TASK_CATEGORY.INDOOR
       ? "bg-blue-100 text-blue-700 border-blue-300"
@@ -72,10 +92,21 @@ export function TaskCard({
   onDelete,
 }: TaskCardProps) {
   const isRecommended = isTaskRecommendedForWeather(task, weatherCondition);
+  const isOverdue = isTaskOverdue(task);
 
-  const cardClassName = isRecommended
-    ? "bg-gradient-to-r from-green-50 to-emerald-50 border-green-200"
-    : "bg-white border-border";
+  const cardClassName = task.completed
+    ? "bg-gray-50 border-gray-200 opacity-75"
+    : isOverdue
+      ? "bg-red-50/50 border-red-200"
+      : isRecommended
+        ? "bg-gradient-to-r from-green-50 to-emerald-50 border-green-200"
+        : "bg-white border-border";
+
+  const dueDateBadgeClassName = task.completed
+    ? "bg-gray-100 text-gray-500 border-gray-300 text-[10px] px-1.5 py-0"
+    : isOverdue
+      ? "bg-red-100 text-red-700 border-red-300 text-[10px] px-1.5 py-0"
+      : "bg-purple-100 text-purple-700 border-purple-300 text-[10px] px-1.5 py-0";
 
   return (
     <Card
@@ -101,10 +132,7 @@ export function TaskCard({
                 {task.title}
               </CardTitle>
               {task.dueDate && (
-                <Badge
-                  variant="outline"
-                  className="bg-purple-100 text-purple-700 border-purple-300 text-[10px] px-1.5 py-0"
-                >
+                <Badge variant="outline" className={dueDateBadgeClassName}>
                   <Calendar className="w-3 h-3 inline mr-0.5" />
                   {formatDueDate(task.dueDate, task.dueTime)}
                 </Badge>
@@ -155,7 +183,15 @@ export function TaskCard({
       </CardHeader>
 
       <CardContent className="flex items-center gap-2 p-4 pt-2">
-        <CategoryBadge category={task.category} />
+        <CategoryBadge category={task.category} isCompleted={task.completed} />
+        {isOverdue && (
+          <Badge
+            variant="outline"
+            className="bg-red-100 text-red-600 border-red-300"
+          >
+            Overdue
+          </Badge>
+        )}
         {isRecommended && <WeatherRecommendedBadge />}
       </CardContent>
     </Card>
